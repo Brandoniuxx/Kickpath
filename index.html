@@ -2902,6 +2902,11 @@ const SCENE = {
     return { A, O };
   })()
 };
+/* Armbar desde el lado: misma base que el armbar de guardia, con el contrincante a un lado */
+SCENE.j_kes = {
+  A: SCENE.j_jgg.A,
+  O: SCENE.j_jgg.O.map(o => { const r = {}; SJ.forEach(k => { r[k] = [o[k][0], o[k][1], o[k][2] - 0.35]; }); return r; })
+};
 function sceneSVG(P, who) {
   const c = Math.cos(VIEW.yaw), sn = Math.sin(VIEW.yaw), S = 88, gy = FIG.ground - 6;
   const Q = {};
