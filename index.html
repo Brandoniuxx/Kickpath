@@ -2275,6 +2275,42 @@ const JEXAMS = {
 KICKS.forEach(k => k.track = 'kick');
 BOX.forEach(b => b.track = 'box');
 FLEX.forEach(f => f.track = 'flex');
+JIU.push(
+  JX('j_kata', 1, '🔄', 'Kata-gatame (hombro desde el lado)', 'Palanca de hombro desde control lateral', 'Desde control lateral, pasas el brazo del oponente sobre tu hombro y presionas su codo hacia su cabeza.', ['Su brazo queda entre tu cuerpo y tu brazo.', 'Presiona el codo hacia su cabeza, no hacia el piso.', 'Pecho pesado, espalda larga.'], 'Presionar con las manos en vez de con el pecho: pierdes el control del hombro.',
+    [R('Kata-gatame en 3 tiempos: control – brazo – presión', 5, 1, ['1) Control lateral con la cadera baja.', '2) Pasa su brazo sobre tu hombro.', '3) Presiona su codo hacia su cabeza.'])],
+    [T('Sombra: control lateral, 30 s', 30, 1, ['Cadera pegada.', 'Cambia de lado a mitad.']), T('Sombra: presión con el pecho, 30 s', 30, 1, ['Respira bajo la presión.', 'Exhala al presionar.'])]),
+  JX('j_kimm', 1, '🌀', 'Kimura desde la montada', 'Rotación del hombro sentado sobre el pecho', 'Sentado sobre el oponente, sujetas su muñeca y giras su brazo hacia atrás con el codo pegado a su costado.', ['Muñeca sujeta con la mano en “pulgar abajo”.', 'Codo del oponente pegado a su costado.', 'Gira el brazo como un volante, sin tirar hacia arriba.'], 'Dejar que el codo se separe del costado: la palanca se pierde.',
+    [R('Kimura desde montada en 3 tiempos: agarre – codo – giro', 5, 1, ['1) Sujeta la muñeca desde la montada.', '2) Pega el codo a su costado.', '3) Gira el brazo hacia su espalda.'])],
+    [T('Sombra: agarre y giro, 30 s', 30, 1, ['Cambia de brazo a mitad.', 'Codo siempre pegado.']), T('Sombra: peso sobre el pecho, 30 s', 30, 1, ['Espalda larga.', 'Exhala al girar.'])]),
+  JX('j_kneeb', 2, '🦵', 'Kneebar desde la guardia', 'Palanca de rodilla con la cadera', 'Desde la guardia, atrapas la pierna del oponente y levantas la cadera para estirar la rodilla. Solo en sombra.', ['Pierna del oponente entre tus muslos.', 'Cadera arriba, no la rodilla.', 'Nunca apliques presión sobre la rodilla con un compañero.'], 'Girar la rodilla hacia afuera: es la zona más delicada y la palanca se mete en la articulación.',
+    [R('Kneebar desde guardia en 3 tiempos: atrapar – cadera – estirar', 5, 1, ['1) Atrapa la pierna entre tus muslos.', '2) Sube la cadera sin girar la rodilla.', '3) Estira la rodilla despacio.'])],
+    [T('Sombra: atrapar la pierna, 30 s', 30, 1, ['Muslos cerrados.', 'Sin prisa.']), T('Sombra: cadera arriba, 30 s', 30, 1, ['Cadera alta, rodilla estable.', 'Exhala al subir.'])]),
+  JX('j_toe', 2, '🦶', 'Toe hold (palanca de dedo del pie)', 'Torsión del pie desde el suelo', 'Atrapas el pie del oponente y lo giras hacia el pulgar del pie. Solo en sombra.', ['Sujeta el pie por los dedos.', 'Gira hacia el pulgar del pie, no hacia la pierna.', 'Nunca apliques presión sobre el pie con un compañero.'], 'Torcer el pie con fuerza: el pie y el tobillo se lesionan rápido.',
+    [R('Toe hold en 3 tiempos: agarre – giro – suelta', 4, 1, ['1) Sujeta el pie por los dedos.', '2) Gira hacia el pulgar del pie.', '3) Suelta despacio.'])],
+    [T('Sombra: agarre del pie, 30 s', 30, 1, ['Mano firme, sin tirones.', 'Cambia de lado a mitad.']), T('Sombra: muñeca y cadera, 30 s', 30, 1, ['La cadera gira, no la mano.', 'Exhala al girar.'])]),
+  JX('j_ankle', 2, '🦶', 'Ankle lock (palanca de tobillo)', 'Torsión del tobillo desde la guardia', 'Desde la guardia, controlas el pie del oponente contra tu cuerpo y lo giras hacia el suelo. Solo en sombra.', ['Pie del oponente pegado a tu costado.', 'Gira hacia el suelo, sin tirar del pie.', 'Nunca apliques presión sobre el tobillo con un compañero.'], 'Tirar del pie en vez de girar el cuerpo: el tobillo sufre sin palanca.',
+    [R('Ankle lock en 3 tiempos: control – pie – giro', 4, 1, ['1) Controla el pie contra tu costado.', '2) Gira el cuerpo hacia el suelo.', '3) Suelta despacio.'])],
+    [T('Sombra: control del pie, 30 s', 30, 1, ['Pie cerca del cuerpo.', 'Cambia de pierna a mitad.']), T('Sombra: giro de cadera, 30 s', 30, 1, ['La cadera gira, no el pie.', 'Exhala al girar.'])]),
+  JX('j_ash', 3, '🔀', 'Ashi-garami (enredo de pierna)', 'Control de la pierna con las tuyas', 'Enredas la pierna del oponente con las tuyas y controlas su rodilla para cambiar de posición. Solo en sombra.', ['Pierna del oponente entre tus piernas.', 'Controla la rodilla con el pie.', 'Nunca apliques presión sobre la rodilla con un compañero.'], 'Enredar sin controlar la cadera: la pierna se escapa y tu rodilla queda expuesta.',
+    [R('Ashi-garami en 3 tiempos: enredo – rodilla – cadera', 5, 1, ['1) Enreda la pierna del oponente.', '2) Controla su rodilla con tu pie.', '3) Gira la cadera para cambiar de posición.'])],
+    [T('Sombra: enredo de piernas, 30 s', 30, 1, ['Piernas firmes.', 'Cambia de lado a mitad.']), T('Sombra: cadera baja, 30 s', 30, 1, ['Cadera baja y estable.', 'Exhala al girar.'])]),
+  JX('j_cad7', 3, '🔁', 'Cadena: americana → omoplata', 'Si la americana se escapa, pasa al hombro con la pierna', 'Si la americana se escapa, cambias al control de manga y pasas la pierna para la omoplata.', ['Mantén el brazo controlado durante el cambio.', 'Pasa la pierna sobre el hombro cuando la manga quede a tu alcance.', 'Termina la palanca con la cadera.'], 'Soltar la manga al cambiar: el brazo vuelve a su lugar.',
+    [R('Cadena americana → omoplata en 4 tiempos', 4, 1, ['1) Americana: codo a 90° y antebrazo al piso.', '2) Si se escapa: controla la manga.', '3) Pasa la pierna sobre el hombro.', '4) Gira la cadera y suelta despacio.'])],
+    [T('Sombra: cadena sin pausa, 30 s', 30, 1, ['Cambia sin soltar el control.', 'Ritmo constante.']), T('Sombra: transición lenta, 30 s', 30, 1, ['Piensa antes de cada cambio.', 'Respira en cada transición.'])]),
+  JX('j_cad8', 3, '🔗', 'Cadena: kata-gatame → juji-gatame', 'Si el hombro se escapa, pasa al codo', 'Si el hombro se escapa del control lateral, pasas la cabeza y el brazo al armbar.', ['Mantén la presión sobre el brazo al cambiar.', 'Pasa la cabeza antes de subir la cadera.', 'Termina el codo con la cadera.'], 'Soltar el brazo antes de pasar la cabeza: el oponente escapa.',
+    [R('Cadena kata-gatame → juji-gatame en 4 tiempos', 4, 1, ['1) Kata-gatame: presión sobre el codo.', '2) Si se escapa: mantén el brazo.', '3) Pasa la cabeza y sube la cadera.', '4) Extiende el codo y suelta despacio.'])],
+    [T('Sombra: cadena sin pausa, 30 s', 30, 1, ['Cambia sin soltar el control.', 'Ritmo constante.']), T('Sombra: transición lenta, 30 s', 30, 1, ['Piensa antes de cada cambio.', 'Respira.'])]),
+  JX('j_cad9', 3, '🦵', 'Cadena: kneebar → toe hold', 'Si la rodilla se escapa, cambia al pie', 'Si el oponente escapa de la kneebar, cambias el control de la pierna a la palanca de dedo del pie. Solo en sombra.', ['Mantén la pierna atrapada al cambiar.', 'Gira hacia el pie solo después del cambio.', 'Nunca apliques presión con un compañero.'], 'Cambiar de presa sin control: la pierna se libera.',
+    [R('Cadena kneebar → toe hold en 3 tiempos', 4, 1, ['1) Kneebar: pierna atrapada.', '2) Si se escapa: mantén el control.', '3) Pasa al pie y gira despacio.'])],
+    [T('Sombra: cadena sin pausa, 30 s', 30, 1, ['Cambia sin soltar el control.', 'Ritmo constante.']), T('Sombra: transición lenta, 30 s', 30, 1, ['Piensa antes de cada cambio.', 'Respira.'])]),
+  JX('j_cad10', 3, '🌀', 'Cadena: kimura → juji-gatame', 'Si la kimura se escapa, pasa al codo', 'Si la kimura se escapa del brazo, cambias el control del codo al armbar.', ['Mantén la muñeca al cambiar.', 'Pasa la cadera antes de extender el codo.', 'Termina con la cadera, igual que la juji-gatame.'], 'Soltar la muñeca antes de pasar la cadera: la cadena se rompe.',
+    [R('Cadena kimura → juji-gatame en 4 tiempos', 4, 1, ['1) Kimura: muñeca y codo.', '2) Si se escapa: mantén la muñeca.', '3) Pasa la cadera al codo.', '4) Extiende el codo y suelta despacio.'])],
+    [T('Sombra: cadena sin pausa, 30 s', 30, 1, ['Cambia sin soltar el control.', 'Ritmo constante.']), T('Sombra: transición lenta, 30 s', 30, 1, ['Piensa antes de cada cambio.', 'Respira.'])]),
+  JX('j_cad11', 3, '🔁', 'Cadena: omoplata → kimura', 'Si la omoplata se escapa, pasa a la muñeca', 'Si la omoplata se escapa, mantienes el brazo y cambias el control a la muñeca para kimura.', ['Mantén el brazo al soltar la pierna.', 'Sujeta la muñeca antes de girar.', 'Gira el brazo con la cadera.'], 'Soltar el brazo antes de sujetar la muñeca: el oponente se libera.',
+    [R('Cadena omoplata → kimura en 4 tiempos', 4, 1, ['1) Omoplata: manga y pierna sobre el hombro.', '2) Si se escapa: mantén el brazo.', '3) Sujeta la muñeca.', '4) Gira hacia la kimura y suelta despacio.'])],
+    [T('Sombra: cadena sin pausa, 30 s', 30, 1, ['Cambia sin soltar el control.', 'Ritmo constante.']), T('Sombra: transición lenta, 30 s', 30, 1, ['Piensa antes de cada cambio.', 'Respira.'])])
+);
+
 const ERRS = {
   teep: 'Dejar caer la pierna después de patear: abres la guardia al contraataque.',
   snap: 'Patear con la punta de los dedos: te lastimas y pierdes impacto.',
@@ -2381,6 +2417,19 @@ const DEFS = {
   j_cad5: 'Desde la juji-gatame, mete el codo al pecho y gira la muñeca hacia tu pulgar.',
   j_cad6: 'Cruza las manos frente al pecho para frenar la rotación y saca el brazo de la manga.'
 };
+Object.assign(DEFS, {
+  j_kata: 'Presiona el codo hacia su cabeza con el pecho, no con las manos, y mantén el brazo entre tu cuerpo y tu brazo.',
+  j_kimm: 'Pega el codo a su costado antes de girar y sube la cadera para cerrar el ángulo.',
+  j_kneeb: 'Saca la pierna antes de que se cierre la guardia y gira la cadera hacia el lado libre.',
+  j_toe: 'Saca el pie hacia afuera y gira la cadera para que la torsión no entre en el tobillo.',
+  j_ankle: 'Saca el pie de tu costado y gira la cadera antes de que cargue la palanca.',
+  j_ash: 'Saca la pierna antes de que quede atrapada y gira la cadera para cambiar de posición.',
+  j_cad7: 'Cruza las manos frente al pecho para frenar la rotación y saca el brazo de la manga.',
+  j_cad8: 'Mete la cabeza antes de que pase el brazo y gira la cadera hacia el lado libre.',
+  j_cad9: 'Saca la pierna del enredo antes del cambio y gira la cadera hacia el lado libre.',
+  j_cad10: 'Mete el codo al pecho y gira la muñeca hacia tu pulgar antes de que cargue la palanca.',
+  j_cad11: 'Saca el brazo hacia afuera y gira el codo antes de que cierren las piernas.'
+});
 KICKS.concat(BOX, JIU).forEach(k => { if (DEFS[k.id]) k.def = DEFS[k.id]; });
 const TRACKS = {
   kick: { name: 'Patadas', icon: '🦵', levels: LEVELS, ranks: RANKS, items: KICKS, exams: EXAMS, examPrefix: 'exam', nodes: [] },
@@ -2550,7 +2599,17 @@ Object.assign(ANIM, {
   j_cad5: { hl: 'L', f: [ANIM.j_jgg.f[0], ANIM.j_jgg.f[3], ['Si se escapa: cambia a kimura', ANIM.j_kim.f[0][1], 400, 300], ANIM.j_kim.f[2]] },
   j_cad6: { hl: 'L', f: [ANIM.j_cad2.f[0], ANIM.j_cad2.f[2], ANIM.j_am.f[2], ANIM.j_jg.f[4]] }
 });
+Object.assign(ANIM, {
+  j_kata: { hl: null, f: ANIM.j_am.f }, j_kimm: { hl: 'R', f: ANIM.j_kim.f }, j_kneeb: { hl: 'R', f: ANIM.j_jgg.f },
+  j_toe: { hl: 'R', f: ANIM.j_kote.f }, j_ankle: { hl: 'L', f: ANIM.j_jgg.f }, j_ash: { hl: 'R', f: ANIM.j_omo.f },
+  j_cad7: { hl: null, f: ANIM.j_am.f }, j_cad8: { hl: 'L', f: ANIM.j_jg.f }, j_cad9: { hl: 'R', f: ANIM.j_jgg.f },
+  j_cad10: { hl: 'R', f: ANIM.j_kim.f }, j_cad11: { hl: null, f: ANIM.j_omo.f }
+});
 Object.assign(YT, {
+  j_kata: 'kata gatame shoulder lock tutorial BJJ', j_kimm: 'kimura from mount tutorial BJJ', j_kneeb: 'kneebar from guard tutorial BJJ',
+  j_toe: 'toe hold tutorial BJJ', j_ankle: 'straight ankle lock tutorial BJJ', j_ash: 'ashi garami leg entanglement tutorial',
+  j_cad7: 'americana to omoplata transition BJJ', j_cad8: 'kata gatame to armbar transition BJJ', j_cad9: 'kneebar to toe hold transition',
+  j_cad10: 'kimura to armbar transition BJJ', j_cad11: 'omoplata to kimura transition BJJ',
   j_jg: 'juji gatame armbar tutorial BJJ', j_am: 'americana keylock tutorial BJJ', j_kim: 'kimura grip tutorial BJJ', j_omo: 'omoplata tutorial BJJ',
   j_kote: 'kote gaeshi wrist lock tutorial', j_jgg: 'armbar from guard tutorial BJJ', j_cad1: 'americana to kimura chain tutorial', j_cad2: 'armbar from mount tutorial BJJ', j_cad3: 'omoplata to armbar tutorial', j_kg: 'kimura from guard tutorial BJJ', j_am2: 'americana from mount tutorial', j_kes: 'kesa gatame armbar tutorial', j_ugar: 'ude garami tutorial BJJ', j_am3: 'americana from guard tutorial', j_kmu: 'kneeling kote gaeshi tutorial', j_cad4: 'kimura to americana chain tutorial', j_cad5: 'armbar to kimura chain tutorial', j_cad6: 'mount americana to armbar chain tutorial'
 });
@@ -2675,10 +2734,23 @@ const DEF_TYPE = {
 /* El defensor reacciona en el momento del impacto, sincronizado con cada cuadro del atacante */
 function partnerPose(st) {
   const id = AV.id, box = id.startsWith('b_'), n = AV.frames.length, impact = Math.max(1, Math.floor(n / 2));
+  const key = box ? 'jab' : (DEF_TYPE[id] || 'guard');
+  const rx = poseOf(Object.assign({ x: 84, s: -1 }, TEMPL[key]));
+  const gd = poseOf(Object.assign({ x: 84, s: -1 }, TEMPL.guard));
+  // Peso de la reacción por cuadro: se prepara antes del impacto, reacciona en el impacto y regresa a guardia
+  const w = i => {
+    if (i < impact) return 0.35 * (i / impact);
+    if (i === impact) return 1;
+    return Math.max(0, 1 - (i - impact) / Math.max(1, n - 1 - impact));
+  };
+  // Contragolpe: tras la defensa, el defensor lanza un jab justo cuando el atacante recupera la pierna
+  const cj = poseOf(Object.assign({ x: 84, s: -1 }, TEMPL.jab));
+  const counter = key !== 'guard' && key !== 'jab';
   const seq = AV.frames.map((_, i) => {
-    const react = box ? i === impact : i >= impact;
-    const key = react ? (box ? 'jab' : (DEF_TYPE[id] || 'guard')) : 'guard';
-    return poseOf(Object.assign({ x: 84, s: -1 }, TEMPL[key]));
+    const base = lerpPose(gd, rx, w(i));
+    if (!counter) return base;
+    const c = i === impact + 1 ? 1 : (i === impact + 2 ? 0.4 : 0);
+    return c ? lerpPose(base, cj, c) : base;
   });
   const b = seq[st.idx], p = seq[st.pi];
   return st.u > 0 ? lerpPose(p, b, st.u) : b;
