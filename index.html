@@ -2907,6 +2907,16 @@ SCENE.j_kes = {
   A: SCENE.j_jgg.A,
   O: SCENE.j_jgg.O.map(o => { const r = {}; SJ.forEach(k => { r[k] = [o[k][0], o[k][1], o[k][2] - 0.35]; }); return r; })
 };
+/* Armbar desde la montada: el atacante arriba, el brazo del contrincante se estira */
+SCENE.j_cad2 = {
+  A: SCENE.j_am2.A.map((a, i) => (i === 2 ? Object.assign({}, a, { pel: [0.1, 0.5, 0] }) : a)),
+  O: SCENE.j_am2.O.map((o, i) => (i === 0 ? o : Object.assign({}, o, { elR: [-0.28, 0.3, -0.32], haR: [0.02 + 0.04 * i, 0.16, -0.36] })))
+};
+/* Omoplata: el atacante de espalda pasa la pierna sobre el hombro del contrincante y gira */
+SCENE.j_omo = {
+  A: SCENE.j_jgg.A.slice(0, 4).map((a, i) => (i >= 1 ? Object.assign({}, a, { knR: [-0.1, 0.95, -0.35], ftR: [-0.4, 0.9, -0.45] }) : a)),
+  O: SCENE.j_jgg.O.slice(0, 4).map((o, i) => Object.assign({}, o, { shR: [-0.1 + (i >= 2 ? -0.05 : 0), 0.98, -0.2], elR: [-0.3, 0.7, -0.3] }))
+};
 function sceneSVG(P, who) {
   const c = Math.cos(VIEW.yaw), sn = Math.sin(VIEW.yaw), S = 88, gy = FIG.ground - 6;
   const Q = {};
