@@ -1292,6 +1292,9 @@
   }
 }
 
+  .kai-bob { animation: kaiBob 2.4s ease-in-out infinite; }
+  @keyframes kaiBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+  @media (prefers-reduced-motion: reduce) { .kai-bob { animation: none; } }
 </style>
 <style>
   html, body { overscroll-behavior: none; -webkit-tap-highlight-color: transparent; }
@@ -1363,6 +1366,8 @@ const T = (n, v, s, c) => ({ n, t: 't', v, s: !!s, c });
 
 /* ---------- Biblioteca de ejercicios (sin material) ---------- */
 const EX = {
+  sh_cars: R('Círculos de hombro con los brazos estirados', 8, 0, ['De pie, brazos estirados al frente, dibuja círculos grandes hacia atrás.', 'Hombros lejos de las orejas, sin encogerte.', 'Lento y controlado: 4 hacia adelante y 4 hacia atrás.']),
+  wrist_flex: T('Movilidad de muñeca (palmas al piso)', 30, 1, ['Manos al piso, dedos hacia atrás, presiona suave.', 'Gira a los lados y haz círculos con las muñecas.', 'Respira y relaja los hombros.']),
   // Movilidad
   cars: R('CARs de cadera (círculos controlados)', 4, 1, ['De pie, una mano en la pared. Sube la rodilla a la altura de la cadera.', 'Ábrela al lado, rótala hacia atrás y bájala: dibuja el círculo más grande posible, lento.', 'Pelvis y tronco quietos: solo se mueve la articulación de la cadera.']),
   swing_f: R('Balanceos frontales de pierna', 12, 1, ['Mano en la pared, rodilla de apoyo suave.', 'Balancea la pierna recta adelante y atrás subiendo la altura poco a poco.', 'No redondees la espalda al final del balanceo.']),
@@ -2129,14 +2134,259 @@ const FEXAMS = {
       ] }
 };
 
+/* ---------- Llaves de jiu-jitsu (palancas articulares, práctica en sombra) ---------- */
+const JLEVELS = [
+  { n: 1, title: 'Brazo básico', color: '#6366F1', dark: '#4F46E5', desc: 'Juji-gatame, americana y kimura: palancas de codo y hombro. En casa solo practicas la sombra, sin presión.' },
+  { n: 2, title: 'Guardia y muñeca', color: '#14B8A6', dark: '#0D9488', desc: 'Omoplata y armbar desde la guardia cerrada, más la palanca de muñeca.' },
+  { n: 3, title: 'Cadenas', color: '#E11D48', dark: '#BE123C', desc: 'Encadenar llaves: si una falla, cambias a otra sin soltar el control.' }
+];
+const JRANKS = ['Blanco', 'Azul', 'Morado', 'Negro'];
+const JPLAN = (tec, drill, mob, str) => ({ mob: mob || ['sh_cars', 'wrist_flex', 'cars'], tec, drill, str: str || ['bridge1', 'hollow', 'birddog'], core: ['deadbug', 'side_plank'] });
+
+const JIU = [
+  { id: 'j_jg', lvl: 1, icon: '🦾', name: 'Juji-gatame (armbar)', es: 'Palanca de codo con la cadera',
+    desc: 'La llave más enseñada del jiu-jitsu: el brazo queda estirado y la cadera hace la palanca sobre el codo.',
+    keys: ['Cadera pegada al brazo del oponente, muslos cerrados.', 'Brazo estirado con el pulgar hacia el techo.', 'La fuerza viene de la cadera, no de los brazos.'],
+    err: 'Abrir las rodillas: el brazo se libera y pierdes la palanca.',
+    plan: JPLAN([R('Juji-gatame en 4 tiempos: control – pierna – cadera – suelta', 5, 1, ['1) Brazo estirado, pulgar arriba, cadera pegada al brazo.', '2) Pasa una pierna sobre la cara del oponente.', '3) Sube la cadera y extiende el codo despacio.', '4) Suelta y vuelve a supino.']), R('Sombra lenta con pausa de 2 s en la palanca', 6, 1, ['Pausa en el punto de bloqueo, respiración normal.', 'Mira la pierna, no la cara.'])],
+      [T('Sombra: entrada a juji-gatame, 30 s', 30, 1, ['Movimientos fluidos, sin tirones.', 'Repite el orden de los 4 tiempos.']), T('Sombra: cadera al brazo, 30 s', 30, 1, ['La cadera nunca se separa del brazo.', 'Exhala al cerrar.'])]) },
+  { id: 'j_am', lvl: 1, icon: '🔄', name: 'Americana (palanca de hombro)', es: 'Rotación del hombro desde el lado',
+    desc: 'Con el codo a 90° a la altura del hombro, llevas el antebrazo al piso y presionas el hombro del oponente.',
+    keys: ['Codo a la altura de su hombro, no por encima.', 'El antebrazo barre hacia el piso en arco.', 'Pecho sobre su hombro, peso controlado.'],
+    err: 'Subir el codo por encima de la cabeza: estresas el hombro sin palanca.',
+    plan: JPLAN([R('Americana en 3 tiempos: codo a 90° – antebrazo al piso – suelta', 5, 1, ['1) Codo a 90° a la altura del hombro del oponente.', '2) Lleva el antebrazo al piso en arco, sin subir el codo.', '3) Suelta despacio y vuelve al centro.']), R('Sombra con pausa de 2 s al bajar el antebrazo', 6, 1, ['Respira mientras mantienes el codo a 90°.', 'Sin tirones.'])],
+      [T('Sombra: americana en cadena suave, 30 s', 30, 1, ['El codo siempre a la altura del hombro.', 'Cambia de lado a mitad de serie.']), T('Sombra: pecho sobre el hombro, 30 s', 30, 1, ['Pecho pesado, espalda larga.', 'Exhala al bajar.'])]) },
+  { id: 'j_kim', lvl: 1, icon: '🌀', name: 'Kimura (gyaku-ude-garami)', es: 'Rotación del hombro con el brazo en forma de 4',
+    desc: 'Sujetas la muñeca del oponente y giras su brazo hacia atrás, sobre su espalda, con el codo pegado a su costado.',
+    keys: ['Agarre de muñeca con tu mano en “pulgar abajo”.', 'Codo del oponente pegado a su costado.', 'Gira el brazo como un volante, sin tirar hacia arriba.'],
+    err: 'No controlar el codo del oponente: el brazo se suelta.',
+    plan: JPLAN([R('Kimura en 4 tiempos: agarre – codo – giro – suelta', 5, 1, ['1) Sujeta la muñeca con la mano en “pulgar abajo”.', '2) Controla el codo contra su costado.', '3) Gira el brazo en arco hacia su espalda.', '4) Suelta y regresa a la posición inicial.']), R('Sombra lenta con pausa de 2 s en el giro', 6, 1, ['Pausa al llegar al límite del hombro.', 'Sin apurarte.'])],
+      [T('Sombra: agarre y giro, 30 s', 30, 1, ['Cambia de brazo a mitad.', 'El codo siempre pegado.']), T('Sombra: kimura con respiración, 30 s', 30, 1, ['Exhala en el giro.', 'Hombro relajado, no encogido.'])]) },
+  { id: 'j_omo', lvl: 2, icon: '🦵', name: 'Omoplata', es: 'Palanca de hombro con la pierna desde la guardia',
+    desc: 'Desde la guardia controlas la manga, pasas una pierna por el brazo del oponente y giras la cadera para rotar su hombro.',
+    keys: ['Controla la manga con la mano del mismo lado.', 'Pierna sobre el hombro, pie de tu lado en su cadera.', 'Gira la cadera, no tires con los brazos.'],
+    err: 'Soltar la manga antes de girar: el oponente escapa.',
+    plan: JPLAN([R('Omoplata en 4 tiempos: manga – pierna – cadera – giro', 5, 1, ['1) Controla la manga desde la guardia.', '2) Pasa la pierna sobre el hombro del oponente.', '3) Gira la cadera, no los brazos.', '4) Regresa a guardia sin soltar la manga.']), R('Sombra con pausa al girar', 6, 1, ['Pausa en el giro, respiración normal.', 'Columna neutra.'])],
+      [T('Sombra: manga y pierna, 30 s', 30, 1, ['Cambia de lado a mitad.', 'Pie de apoyo firme.']), T('Sombra: giro de cadera, 30 s', 30, 1, ['La cadera gira, el torso sigue.', 'Exhala al girar.'])]) },
+  { id: 'j_kote', lvl: 2, icon: '✋', name: 'Kote-gaeshi (palanca de muñeca)', es: 'Giro de muñeca hacia el pulgar, de pie',
+    desc: 'Palanca de muñeca de bajo riesgo: giras la mano del oponente hacia su pulgar mientras bajas la cadera.',
+    keys: ['Sujeta la mano por los dedos y el pulgar.', 'Gira hacia el pulgar del oponente.', 'Baja la cadera: la palanca viene de las piernas.'],
+    err: 'Girar con el hombro en vez de la cadera: pierdes el control.',
+    plan: JPLAN([R('Kote-gaeshi en 3 tiempos: agarre – giro – cadera', 6, 1, ['1) Sujeta la mano por los dedos y el pulgar.', '2) Gira la muñeca hacia el pulgar del oponente.', '3) Baja la cadera y suelta despacio.']), R('Sombra lenta con pausa en el giro', 6, 1, ['Muñeca recta, sin torcer el antebrazo.', 'Respira.'])],
+      [T('Sombra: agarre y giro, 30 s', 30, 1, ['Cambia de mano a mitad.', 'Baja la cadera en cada giro.']), T('Sombra: cadera baja y estable, 30 s', 30, 1, ['Rodillas flexionadas.', 'Espalda neutra.'])]) },
+  { id: 'j_jgg', lvl: 2, icon: '🦾', name: 'Juji-gatame desde la guardia', es: 'Armbar desde la guardia cerrada',
+    desc: 'Con las piernas en la cintura del oponente, cambias la cadera a la línea del brazo y extiendes el codo.',
+    keys: ['Cierra la guardia con los tobillos cruzados.', 'Pasa una pierna sobre la cara del oponente.', 'Sube la cadera hasta bloquear el codo.'],
+    err: 'Dejar las rodillas abiertas: el brazo se libera.',
+    plan: JPLAN([R('Juji-gatame desde guardia en 4 tiempos: guardia – cadera – pierna – cierre', 5, 1, ['1) Guardia cerrada: tobillos cruzados.', '2) Cadera al lado del brazo, sube una pierna.', '3) Pierna sobre la cara, sube la cadera.', '4) Extiende el codo despacio y suelta.']), R('Sombra lenta con pausa de 2 s', 6, 1, ['Mantén la guardia cerrada todo el tiempo.', 'Respira.'])],
+      [T('Sombra: entrada desde guardia, 30 s', 30, 1, ['Movimientos ordenados.', 'Vuelve a guardia al final de cada repetición.']), T('Sombra: cadera arriba, 30 s', 30, 1, ['Sube la cadera sin apoyar las manos.', 'Exhala al subir.'])]) },
+  { id: 'j_cad1', lvl: 3, icon: '🔗', name: 'Cadena: americana → kimura', es: 'Si la americana no termina, pasa a la kimura',
+    desc: 'Las cadenas enseñan a no soltar: si el oponente se defiende de una llave, cambias a otra sin perder el brazo.',
+    keys: ['Mantén el agarre de muñeca durante el cambio.', 'Si el codo se escapa, gira el brazo hacia la kimura.', 'Practica la transición lenta antes de aplicar presión.'],
+    err: 'Soltar la muñeca al cambiar: la cadena se rompe.',
+    plan: JPLAN([R('Cadena americana → kimura en 4 tiempos', 4, 1, ['1) Americana: codo a 90° y antebrazo al piso.', '2) Si se escapa: mantén la muñeca.', '3) Kimura: gira el brazo hacia su espalda.', '4) Suelta despacio.']), R('Sombra lenta de la cadena completa', 4, 1, ['Pausa en cada cambio.', 'Sin tirones.'])],
+      [T('Sombra: cadena sin pausa, 30 s', 30, 1, ['Cambia de llave sin soltar el control.', 'Ritmo constante.']), T('Sombra: transición lenta, 30 s', 30, 1, ['Piensa antes de cada cambio.', 'Respira en cada transición.'])],
+      ['sh_cars', 'wrist_flex', 'cars'], ['bridge1', 'hollow', 'birddog']) },
+  { id: 'j_cad2', lvl: 3, icon: '🏔️', name: 'Juji-gatame desde la montada', es: 'Armbar desde la posición de montada',
+    desc: 'Sentado sobre el pecho del oponente, pasas la pierna sobre su cara y terminas la palanca del codo.',
+    keys: ['Rodillas a los lados de su tronco.', 'Pasa una pierna sobre la cabeza, la otra a la cadera.', 'Levanta la cadera para cerrar el ángulo.'],
+    err: 'Caer hacia atrás sin control: el oponente se libera.',
+    plan: JPLAN([R('Juji-gatame desde montada en 4 tiempos: montada – pierna – cadera – cierre', 4, 1, ['1) Montada: rodillas a los lados del tronco.', '2) Pasa una pierna sobre la cabeza.', '3) Sube la cadera para cerrar el ángulo.', '4) Extiende el codo y suelta despacio.']), R('Sombra lenta con pausa', 5, 1, ['Mantén el pecho alto.', 'Respira.'])],
+      [T('Sombra: montada a juji-gatame, 30 s', 30, 1, ['Movimientos ordenados.', 'Vuelve a montada al final.']), T('Sombra: cadera arriba, 30 s', 30, 1, ['Sube la cadera sin apoyar las manos.', 'Exhala al subir.'])],
+      ['sh_cars', 'wrist_flex', 'cars'], ['bridge1', 'hollow', 'birddog']) },
+  { id: 'j_cad3', lvl: 3, icon: '🔁', name: 'Cadena: omoplata → juji-gatame', es: 'Del hombro al codo sin soltar el brazo',
+    desc: 'Si la omoplata falla, el mismo control del brazo te lleva a la juji-gatame.',
+    keys: ['Mantén el brazo controlado durante la rotación.', 'Cambia de pierna solo cuando el codo quede a tu alcance.', 'Termina la palanca con la cadera, igual que la juji-gatame.'],
+    err: 'Cambiar de llave sin mantener el control: el brazo vuelve a su lugar.',
+    plan: JPLAN([R('Cadena omoplata → juji-gatame en 4 tiempos', 4, 1, ['1) Omoplata: manga y pierna sobre el hombro.', '2) Si se escapa: mantén la manga.', '3) Pasa la pierna a la cara y sube la cadera.', '4) Extiende el codo y suelta despacio.']), R('Sombra lenta de la cadena', 4, 1, ['Pausa en cada cambio.', 'Respira.'])],
+      [T('Sombra: cadena sin pausa, 30 s', 30, 1, ['Cambia de llave sin soltar el control.', 'Ritmo constante.']), T('Sombra: transición lenta, 30 s', 30, 1, ['Piensa antes de cada cambio.', 'Respira en cada transición.'])],
+      ['sh_cars', 'wrist_flex', 'cars'], ['bridge1', 'hollow', 'birddog']) }
+];
+JIU.forEach(j => j.track = 'jiu');
+const JX = (id, lvl, icon, name, es, desc, keys, err, tec, drill) => ({ id, lvl, icon, name, es, desc, keys, err, track: 'jiu', plan: JPLAN(tec, drill) });
+JIU.push(
+  JX('j_kg', 1, '🌀', 'Kimura desde la guardia', 'Brazo girado desde abajo', 'Desde guardia, sujetas la muñeca del oponente y giras su brazo con el codo pegado a su costado.', ['Agarre de muñeca con la mano en “pulgar abajo”.', 'Pega el codo del oponente a su costado con tu brazo libre.', 'Gira el brazo hacia su espalda con ayuda de la cadera.'], 'Soltar la muñeca al girar: el brazo se escapa.',
+    [R('Kimura desde guardia en 4 tiempos: agarre – codo – giro – suelta', 5, 1, ['1) Agarre de muñeca desde guardia.', '2) Codo del oponente pegado a su costado.', '3) Gira el brazo hacia su espalda.', '4) Suelta y regresa a guardia.']), R('Sombra lenta con pausa en el giro', 6, 1, ['Pausa al llegar al límite.', 'Respira.'])],
+    [T('Sombra: agarre y giro, 30 s', 30, 1, ['Cambia de brazo a mitad.', 'Codo siempre pegado.']), T('Sombra: guardia y cadera, 30 s', 30, 1, ['La cadera ayuda al giro.', 'Exhala al girar.'])]),
+  JX('j_am2', 1, '🔄', 'Americana desde la montada', 'Palanca de hombro desde arriba', 'Sentado sobre el pecho del oponente, bajas el antebrazo hacia el piso y presionas el hombro.', ['Codo a 90° y a la altura de su hombro.', 'Antebrazo al piso en arco.', 'Cadera pesada sobre su pecho.'], 'Dejar el codo lejos del cuerpo: pierdes la presión.',
+    [R('Americana desde montada en 3 tiempos: codo – antebrazo – suelta', 5, 1, ['1) Codo a 90° a la altura del hombro.', '2) Lleva el antebrazo al piso en arco.', '3) Suelta despacio.']), R('Sombra lenta con pausa', 6, 1, ['Respira mientras mantienes el codo.', 'Sin tirones.'])],
+    [T('Sombra: montada y americana, 30 s', 30, 1, ['Peso sobre el pecho, nunca sobre el cuello.', 'Cambia de lado a mitad.']), T('Sombra: codo pegado, 30 s', 30, 1, ['El codo siempre al cuerpo.', 'Exhala al bajar.'])]),
+  JX('j_kes', 1, '🦾', 'Armbar desde el lado (kesa-gatame)', 'Brazo atrapado desde control lateral', 'Desde control lateral, pasas la cabeza sobre el brazo del oponente y extiendes el codo con la cadera.', ['Cabeza por encima de su brazo, nunca por debajo.', 'Brazo atrapado entre tu pecho y tu hombro.', 'Cadera alta y extiende el codo despacio.'], 'Pasar la cabeza por debajo del brazo: la palanca no carga.',
+    [R('Armbar desde el lado en 4 tiempos: control – cabeza – cadera – cierre', 5, 1, ['1) Control lateral: cadera pegada a su pecho.', '2) Pasa la cabeza sobre su brazo.', '3) Sube la cadera y extiende el codo.', '4) Suelta despacio.']), R('Sombra lenta con pausa', 6, 1, ['Pausa en la palanca.', 'Respira.'])],
+    [T('Sombra: entrada desde el lado, 30 s', 30, 1, ['Cabeza primero, luego el brazo.', 'Ritmo constante.']), T('Sombra: cadera alta, 30 s', 30, 1, ['La cadera sube antes del codo.', 'Exhala al subir.'])]),
+  JX('j_ugar', 2, '🌀', 'Ude-garami (enredo de brazo)', 'Palanca de codo atrapando el brazo', 'Desde la guardia atrapas el brazo del oponente entre tus piernas y giras la cadera para rotar el codo.', ['Brazo del oponente atrapado entre tus muslos.', 'Sujeta su muñeca con las dos manos.', 'Gira la cadera, sin tirar con el cuello.'], 'Tirar con los brazos sin cadera: el enredo se suelta.',
+    [R('Ude-garami en 4 tiempos: atrapar – muñeca – cadera – giro', 5, 1, ['1) Atrapa el brazo entre tus muslos.', '2) Sujeta la muñeca con las dos manos.', '3) Gira la cadera hacia el codo.', '4) Suelta y regresa a guardia.']), R('Sombra lenta con pausa', 6, 1, ['Pausa en el giro.', 'Respira.'])],
+    [T('Sombra: enredo y giro, 30 s', 30, 1, ['Cambia de lado a mitad.', 'Cadera primero.']), T('Sombra: guardia cerrada, 30 s', 30, 1, ['Tobillos cruzados.', 'Exhala al girar.'])]),
+  JX('j_am3', 2, '🔄', 'Americana desde la guardia', 'Palanca de hombro con las piernas', 'Desde guardia controlas el brazo del oponente sobre tu pierna y cierras la americana.', ['Brazo del oponente sobre tu pierna.', 'Codo a 90° y antebrazo al piso.', 'Presiona el hombro con el pecho.'], 'Soltar la manga antes de cerrar: se escapa el brazo.',
+    [R('Americana desde guardia en 3 tiempos: control – codo – cierre', 5, 1, ['1) Brazo sobre tu pierna.', '2) Codo a 90° y antebrazo al piso.', '3) Cierra y suelta despacio.']), R('Sombra lenta con pausa', 6, 1, ['Pausa en el cierre.', 'Respira.'])],
+    [T('Sombra: control de brazo, 30 s', 30, 1, ['Manga siempre sujeta.', 'Cambia de lado a mitad.']), T('Sombra: codo pegado, 30 s', 30, 1, ['El codo al cuerpo.', 'Exhala al cerrar.'])]),
+  JX('j_kmu', 2, '✋', 'Kote-gaeshi desde el suelo', 'Palanca de muñeca desde rodillas', 'Desde rodillas o guardia, palanca de muñeca hacia el pulgar del oponente.', ['Agarre por los dedos y el pulgar.', 'Gira la muñeca hacia su pulgar.', 'Baja la cadera al girar.'], 'Girar con el hombro en vez de la cadera.',
+    [R('Kote-gaeshi desde el suelo en 3 tiempos: agarre – giro – cadera', 6, 1, ['1) Agarre por dedos y pulgar.', '2) Gira la muñeca hacia su pulgar.', '3) Baja la cadera y suelta despacio.']), R('Sombra lenta con pausa', 6, 1, ['Muñeca recta.', 'Respira.'])],
+    [T('Sombra: agarre y giro, 30 s', 30, 1, ['Cambia de mano a mitad.', 'Cadera baja.']), T('Sombra: rodillas firmes, 30 s', 30, 1, ['Rodillas bajo la cadera.', 'Espalda neutra.'])]),
+  JX('j_cad4', 3, '🔁', 'Cadena: kimura → americana', 'Si la kimura se escapa, pasa a americana', 'Si la kimura se escapa, cambias a americana sin soltar el brazo.', ['Mantén el brazo controlado al cambiar.', 'Codo a 90° para la americana.', 'Si el brazo escapa, regresa a kimura.'], 'Cambiar de llave con el codo suelto.',
+    [R('Cadena kimura → americana en 4 tiempos', 4, 1, ['1) Kimura: muñeca y codo.', '2) Si se escapa: mantén el brazo.', '3) Americana: codo a 90°.', '4) Suelta despacio.']), R('Sombra lenta de la cadena', 4, 1, ['Pausa en cada cambio.', 'Respira.'])],
+    [T('Sombra: cadena sin pausa, 30 s', 30, 1, ['Cambia sin soltar el control.', 'Ritmo constante.']), T('Sombra: transición lenta, 30 s', 30, 1, ['Piensa antes de cada cambio.', 'Respira.'])], ['sh_cars', 'wrist_flex', 'cars'], ['bridge1', 'hollow', 'birddog']),
+  JX('j_cad5', 3, '🔗', 'Cadena: juji-gatame → kimura', 'Si la juji-gatame se escapa del codo', 'Si la juji-gatame se escapa del codo, pasas el brazo a kimura.', ['Mantén la muñeca al soltar el codo.', 'Gira hacia la kimura.', 'Usa la cadera para la palanca de la kimura.'], 'Soltar la muñeca al cambiar de llave.',
+    [R('Cadena juji-gatame → kimura en 4 tiempos', 4, 1, ['1) Juji-gatame: cadera y codo.', '2) Si se escapa: mantén la muñeca.', '3) Gira hacia la kimura.', '4) Suelta despacio.']), R('Sombra lenta de la cadena', 4, 1, ['Pausa en cada cambio.', 'Respira.'])],
+    [T('Sombra: cadena sin pausa, 30 s', 30, 1, ['Cambia sin soltar el control.', 'Ritmo constante.']), T('Sombra: transición lenta, 30 s', 30, 1, ['Piensa antes de cada cambio.', 'Respira.'])], ['sh_cars', 'wrist_flex', 'cars'], ['bridge1', 'hollow', 'birddog']),
+  JX('j_cad6', 3, '🏔️', 'Cadena desde la montada: americana → juji-gatame', 'Si la americana no termina, pasa a juji-gatame', 'Desde montada, si la americana no termina, pasas la pierna a la juji-gatame.', ['Americana desde montada.', 'Pasa la pierna sobre la cabeza si se escapa.', 'Cierra con la cadera arriba.'], 'Caer hacia atrás al cambiar de llave.',
+    [R('Cadena desde montada en 4 tiempos: americana – pierna – cadera – cierre', 4, 1, ['1) Americana desde montada.', '2) Si se escapa: pasa la pierna a la cara.', '3) Sube la cadera.', '4) Extiende el codo y suelta.']), R('Sombra lenta de la cadena', 4, 1, ['Pausa en cada cambio.', 'Respira.'])],
+    [T('Sombra: cadena sin pausa, 30 s', 30, 1, ['Cambia sin soltar el control.', 'Ritmo constante.']), T('Sombra: transición lenta, 30 s', 30, 1, ['Piensa antes de cada cambio.', 'Respira.'])], ['sh_cars', 'wrist_flex', 'cars'], ['bridge1', 'hollow', 'birddog'])
+);
+
+const JEXAMS = {
+  1: { quiz: [
+        { q: '¿Qué parte del cuerpo hace la palanca en la juji-gatame?', o: ['Los brazos tirando', 'La cadera', 'Las rodillas', 'El cuello'], a: 1, e: 'La cadera pegada al brazo convierte el movimiento en palanca sobre el codo.' },
+        { q: '¿Cuál es la llave de muñeca de bajo riesgo para empezar?', o: ['Kote-gaeshi', 'Kimura', 'Omoplata', 'Juji-gatame'], a: 0, e: 'Es una palanca corta, de bajo riesgo, para aprender el control.' },
+        { q: 'En casa, ¿cómo practicas las llaves?', o: ['Aplicando presión a alguien', 'Solo en sombra, sin presión', 'Sobre una pared con fuerza', 'Con pesas en el codo'], a: 1, e: 'Sin compañero entrenado, la práctica es de movimiento; la presión real va en clase.' },
+        { q: 'Si sientes dolor agudo en el codo o el hombro…', o: ['Sigues con más fuerza', 'Te detienes y sueltas', 'Cambias de brazo y sigues', 'Rebotas'], a: 1, e: 'El dolor agudo es señal de parar; la llave se suelta de inmediato.' }
+      ],
+      phys: [
+        { n: 'Puente de glúteo sostenido', d: 'Cadera arriba, hombros en el piso, abdomen apretado.', t: 't', v: 30, s: false },
+        { n: 'Plancha lateral', d: 'Cuerpo en línea recta, cadera alta.', t: 't', v: 30, s: true },
+        { n: 'Sombra de juji-gatame lenta', d: 'Cinco repeticiones sin apurarte, con pausa de 2 s al cerrar.', t: 't', v: 60, s: false }
+      ] },
+  2: { quiz: [
+        { q: '¿Desde dónde se aplica la omoplata?', o: ['Desde la montada', 'Desde la guardia', 'De pie', 'Boca abajo sin control'], a: 1, e: 'Desde la guardia controlas la manga y pasas la pierna por el hombro.' },
+        { q: 'En la omoplata, ¿de dónde sale la fuerza?', o: ['Del hombro', 'De la cadera al girar', 'De las manos', 'Del cuello'], a: 1, e: 'La rotación de la cadera gira el hombro sin tirar con los brazos.' },
+        { q: 'En la kote-gaeshi, ¿qué giras?', o: ['La muñeca hacia el pulgar', 'El codo hacia atrás', 'El cuello', 'El tobillo'], a: 0, e: 'La palanca gira la muñeca hacia el pulgar del oponente.' },
+        { q: 'En la armbar desde guardia cerrada, ¿qué bloqueas?', o: ['El codo, con la cadera', 'La rodilla', 'El tobillo', 'El hombro con la mano'], a: 0, e: 'El codo se bloquea con la cadera; el hombro no es la articulación de la palanca.' }
+      ],
+      phys: [
+        { n: 'Hollow hold', d: 'Espalda baja pegada al piso, brazos y piernas bajas pero controladas.', t: 't', v: 20, s: false },
+        { n: 'Bird dog sostenido', d: 'Brazo y pierna opuestos, espalda neutra.', t: 't', v: 30, s: true },
+        { n: 'Sombra de omoplata', d: 'Cinco repeticiones completas de giro de cadera.', t: 't', v: 60, s: false }
+      ] },
+  3: { quiz: [
+        { q: '¿Qué es una cadena de llaves?', o: ['Encadenar varias llaves sin soltar el control', 'Tres llaves seguidas sin pausa', 'Una llave con cadena', 'Un ejercicio de fuerza'], a: 0, e: 'Cuando una llave falla, cambias a otra y mantienes el control del brazo.' },
+        { q: 'En la cadena americana → kimura, ¿qué no debes soltar?', o: ['La muñeca', 'El tobillo', 'La rodilla', 'El cinturón'], a: 0, e: 'La muñeca es el punto de control durante el cambio.' },
+        { q: 'En la juji-gatame desde la montada, ¿dónde quedan tus rodillas?', o: ['A los lados del tronco del oponente', 'Sobre sus piernas', 'Detrás de su cabeza', 'Abiertas y lejos'], a: 0, e: 'Las rodillas a los lados mantienen el peso y el control.' },
+        { q: '¿Cuándo se cambia de llave?', o: ['Cuando la actual se escapa o el oponente se defiende', 'Cada 5 segundos', 'Nunca', 'Al terminar la sesión'], a: 0, e: 'El cambio se hace por lo que pasa, no por el reloj.' }
+      ],
+      phys: [
+        { n: 'Plancha frontal', d: 'Cuerpo en línea recta, glúteos apretados.', t: 't', v: 45, s: false },
+        { n: 'Deadbug sostenido', d: 'Espalda baja pegada al piso, brazo y pierna contrarios.', t: 't', v: 30, s: true },
+        { n: 'Cadena completa en sombra', d: 'Americana → kimura sin pausas, tres veces.', t: 't', v: 90, s: false }
+      ] }
+};
+
+
 /* ---------- Pistas (tracks) y nodos ---------- */
 KICKS.forEach(k => k.track = 'kick');
 BOX.forEach(b => b.track = 'box');
 FLEX.forEach(f => f.track = 'flex');
+const ERRS = {
+  teep: 'Dejar caer la pierna después de patear: abres la guardia al contraataque.',
+  snap: 'Patear con la punta de los dedos: te lastimas y pierdes impacto.',
+  lowext: 'Patear con el pie de apoyo plano: no pivotas y pierdes potencia.',
+  lowint: 'Abrir la guardia al bajar la pierna: el contraataque entra fácil.',
+  calf: 'Subir mucho la rodilla: pierdes velocidad y se ve venir.',
+  mid: 'Lanzar sin pivotar el pie de apoyo: el golpe llega sin fuerza.',
+  switch: 'Cambiar de pierna sin guardia: quedas descubierto en el cambio.',
+  pushlat: 'Empujar con la rodilla en vez de la planta: no transmite fuerza.',
+  side: 'Inclinar el tronco hacia atrás de más: pierdes el equilibrio.',
+  oblique: 'Golpear con el empeine en vez del canto del pie: el impacto se pierde.',
+  high: 'Girar sin pivotar el pie de apoyo: la cadera no gira y la patada no llega arriba.',
+  question: 'Avisar el engaño con la cadera: el oponente lo ve venir.',
+  axe: 'Bajar el talón con el pie flexionado: pierdes el impacto.',
+  crescent: 'Cruzar la pierna demasiado lejos: pierdes el equilibrio.',
+  back: 'Mirar al frente al girar: el giro se queda a medias.',
+  hook: 'Lanzar el talón sin pivotar: no llega al objetivo.',
+  spinside: 'No mirar por encima del hombro: pierdes la referencia del objetivo.',
+  jfront: 'Saltar sin rodilla de impulso: la patada cae sin potencia.',
+  jswitch: 'Aterrizar con las rodillas rectas: impacto fuerte en las articulaciones.',
+  tornado: 'Perder el equilibrio al aterrizar: la pierna de apoyo no queda firme.',
+  wheel: 'Dejar caer el cuerpo al girar: pierdes altura en el talón.',
+  butterfly: 'Bajar la cabeza al girar: pierdes la línea y te expones.',
+  k540: 'Girar la cabeza tarde: no ves el objetivo al aterrizar.',
+  b_guard: 'Pararte con las piernas rectas: no puedes moverte rápido.',
+  b_steps: 'Cruzar los pies al moverte: pierdes estabilidad.',
+  b_pivot: 'Pivotar sin apoyar el talón: pierdes el ángulo.',
+  b_slip: 'Agachar solo la cabeza: el golpe te alcanza igual.',
+  b_roll: 'Doblar solo la espalda: sin piernas no hay esquiva real.',
+  b_pull: 'Echar el cuerpo atrás sin control: quedas desbalanceado.',
+  b_block: 'Bajar las manos al bloquear: abres la cara para el siguiente golpe.',
+  b_parry: 'Mover solo el brazo: el desvío es débil y el golpe pasa.',
+  b_check: 'Levantar la pierna sin guardia: quedas inestable.',
+  b_counter: 'Contraatacar sin volver a guardia: te devuelven el golpe.',
+  b_kblock: 'Bloquear sin el codo arriba: la patada llega a la cabeza.',
+  b_catch: 'Soltar la pierna al tirar: pierdes el contraataque.',
+  b_range: 'Retroceder en línea recta: quedas en el alcance de la patada.',
+  b_kcounter: 'Contraatacar sin regresar a guardia: quedas en rango de la siguiente patada.',
+  f_ham: 'Redondear la espalda al bajar: estiras la espalda, no los isquios.',
+  f_hipflex: 'Arquear la espalda baja: la cadera no se abre, solo carga la lumbar.',
+  f_add: 'Forzar la apertura con rebotes: produce tirones y lesiones.',
+  f_fsplit: 'Bajar sin apoyos: la cadera se inclina y no estira lo que necesitas.',
+  f_ssplit: 'Rotar el tronco hacia la pierna de apoyo: pierdes el estiramiento lateral.',
+  f_glute: 'Forzar la rodilla hacia el piso: estresas cadera y rodilla.',
+  f_active: 'Subir la pierna con impulso: eso es rebote, no flexibilidad activa.',
+  f_pancake: 'Arquear la columna para bajar el pecho: la espalda baja se lesiona.',
+  f_full: 'Saltar entre posturas: pierdes control y progreso.'
+};
+KICKS.concat(BOX, FLEX).forEach(k => { if (!k.err && ERRS[k.id]) k.err = ERRS[k.id]; });
+const DEFS = {
+  teep: 'Da un paso atrás para salir del alcance, o frena el empuje con la mano y la cadera antes de que llegue al pecho.',
+  snap: 'Levanta la espinilla del mismo lado para bloquear el empeine, o da un paso atrás para que no alcance.',
+  lowext: 'Levanta la espinilla de la pierna adelantada para checarla y cambia el peso a la pierna de atrás.',
+  lowint: 'Levanta la pierna de adelante para checar el muslo interno y pivota para salir del ángulo.',
+  calf: 'Levanta la pierna que recibe el golpe para checarla con la espinilla y da un paso al centro.',
+  mid: 'Baja el codo del lado de la patada para proteger el costado y bloquea con la espinilla o la mano.',
+  switch: 'Mantén la guardia alta y observa la pierna que cambia; bloquea con el antebrazo y da un paso atrás.',
+  pushlat: 'Gira el cuerpo para recibir el empuje en el hombro, o da un paso atrás para salir de rango.',
+  side: 'Bloquea con el antebrazo y la rodilla de tu lado; cuando la pierna regrese, contragolpea.',
+  oblique: 'Levanta la rodilla de tu lado para proteger la pierna, o pivota el pie de apoyo para apartar la rodilla.',
+  high: 'Levanta el brazo del lado de la patada hasta la sien con el codo abajo para absorber, o da un paso atrás.',
+  question: 'No caigas en el engaño de la cadera: espera a que la pierna se mueva y mantén las manos arriba.',
+  axe: 'Gira la cabeza hacia la pierna que cae y levanta el brazo del lado; da un paso atrás para que el talón caiga en el vacío.',
+  crescent: 'Bloquea con el antebrazo y el hombro cuando el pie llegue arriba; salir de rango funciona mejor que aguantar.',
+  back: 'Si ves el giro por encima del hombro, da un paso hacia adentro y bloquea con el antebrazo.',
+  hook: 'Cubre la sien con el antebrazo y el codo abajo; da un paso al lado para dejar pasar el talón.',
+  spinside: 'Cubre el costado con el codo, gira la cabeza hacia la patada y da un paso a un costado para salir del alcance.',
+  jfront: 'Da un paso atrás al ver el salto; si la patada llega, bloquea con las dos manos y el antebrazo.',
+  jswitch: 'Retrocede para que la patada caiga corta; bloquea con el brazo del mismo lado y contragolpea al aterrizar.',
+  tornado: 'Da un paso atrás antes de que empiece el giro; si ya empezó, cubre la cabeza y el costado con el codo.',
+  wheel: 'Mantén la mirada en el oponente para no quedar de espaldas; si llega el talón, cubre la sien y da un paso al lado.',
+  butterfly: 'Da un paso atrás para salir del rango; si llega, bloquea con el antebrazo y gira hacia la patada.',
+  k540: 'Sal del rango antes de que empiece el giro; si ya viene, cubre la cabeza con los dos brazos.',
+  b_guard: 'Mantén la guardia alta y los codos cerrados; el peso repartido te deja reaccionar a cualquier golpe.',
+  b_steps: 'Cuando el oponente avanza, da un paso atrás con el pie trasero y vuelve a quedar fuera del alcance.',
+  b_pivot: 'Pivota en lugar de retroceder en línea recta: el oponente tiene que girar para seguirte.',
+  b_slip: 'Si el jab viene recto, muévete a un lado de la línea doblando las rodillas, no solo la cabeza.',
+  b_roll: 'Si viene un gancho, dobla las rodillas y pasa por debajo del brazo para quedar fuera del siguiente golpe.',
+  b_pull: 'Echa el torso atrás para que el golpe se quede corto; regresa con un contraataque.',
+  b_block: 'Lleva los guantes a la frente con los codos abajo; el golpe choca contra tus brazos.',
+  b_parry: 'Desvía el jab con la mano trasera hacia afuera, sin mover la cabeza ni el cuerpo de más.',
+  b_check: 'Levanta la rodilla que recibe el low kick y pásala con la espinilla al muslo del oponente.',
+  b_counter: 'Esquiva con slip, responde con un golpe corto y regresa a guardia antes de que el oponente se reacomode.',
+  b_kblock: 'Levanta el antebrazo y el codo del lado de la patada hasta la sien; absorbe y devuelve el golpe.',
+  b_catch: 'Mueve la cadera hacia atrás para que la patada no llegue completa; sujeta la pierna solo si estás seguro.',
+  b_range: 'Da un paso atrás con el pie de atrás para salir del rango antes de que la patada llegue.',
+  b_kcounter: 'Después de bloquear la patada, responde en ese instante: el oponente queda desbalanceado un momento.',
+  j_jg: 'Escapa antes de la palanca: mete el pulgar hacia tu cuerpo, gira hacia el pulgar del oponente y saca el codo hacia afuera.',
+  j_am: 'Pega el codo a tu costado y gira hacia el lado de la palanca; no dejes que el antebrazo llegue al piso.',
+  j_kim: 'Gira la muñeca hacia tu pulgar para romper el agarre y mete el codo al pecho antes de moverte.',
+  j_omo: 'Ponte de lado hacia el brazo atrapado, saca el brazo y cruza la pierna fuera del hombro.',
+  j_kote: 'Gira la muñeca hacia tu pulgar antes de que la palanca cargue; si ya cargó, baja la cadera y sube el codo.',
+  j_jgg: 'Antes del armbar, cierra las rodillas, saca el brazo hacia el pecho y gira el cuerpo hacia el lado libre.',
+  j_cad1: 'Cuando cambien a kimura, pega el codo al cuerpo y gira la muñeca hacia tu pulgar para salir.',
+  j_cad2: 'Desde montada, cruza las manos frente al pecho, frena la pierna que pasa y mete el codo.',
+  j_cad3: 'Frena la rotación de la cadera del atacante con tu peso y saca el brazo de la manga.',
+  j_kg: 'Pega el codo a tu costado y gira la muñeca hacia tu pulgar para romper el agarre desde abajo.',
+  j_am2: 'Mete el codo al cuerpo y cruza las manos; gira hacia el lado de la palanca antes de que el antebrazo llegue al piso.',
+  j_kes: 'Mete la cabeza antes de que pase el brazo y gira la cadera hacia el lado libre.',
+  j_ugar: 'Saca la mano del enredo, gira la muñeca hacia tu pulgar y suelta el codo antes de la rotación.',
+  j_am3: 'Saca el brazo hacia afuera y gira el codo antes de que cierren las piernas.',
+  j_kmu: 'Gira la muñeca hacia tu pulgar y baja la cadera antes de que cargue la palanca.',
+  j_cad4: 'Al cambiar a americana, mete el codo al cuerpo y gira la muñeca hacia tu pulgar.',
+  j_cad5: 'Desde la juji-gatame, mete el codo al pecho y gira la muñeca hacia tu pulgar.',
+  j_cad6: 'Cruza las manos frente al pecho para frenar la rotación y saca el brazo de la manga.'
+};
+KICKS.concat(BOX, JIU).forEach(k => { if (DEFS[k.id]) k.def = DEFS[k.id]; });
 const TRACKS = {
   kick: { name: 'Patadas', icon: '🦵', levels: LEVELS, ranks: RANKS, items: KICKS, exams: EXAMS, examPrefix: 'exam', nodes: [] },
   box:  { name: 'Pies y Defensa', icon: '🥊', levels: BLEVELS, ranks: BRANKS, items: BOX, exams: BEXAMS, examPrefix: 'bexam', nodes: [] },
-  flex: { name: 'Flexibilidad', icon: '🧘', levels: FLEVELS, ranks: FRANKS, items: FLEX, exams: FEXAMS, examPrefix: 'fexam', nodes: [] }
+  flex: { name: 'Flexibilidad', icon: '🧘', levels: FLEVELS, ranks: FRANKS, items: FLEX, exams: FEXAMS, examPrefix: 'fexam', nodes: [] },
+  jiu:  { name: 'Llaves', icon: '🥋', levels: JLEVELS, ranks: JRANKS, items: JIU, exams: JEXAMS, examPrefix: 'jexam', nodes: [] }
 };
 Object.entries(TRACKS).forEach(([tr, T_]) => {
   T_.levels.forEach(L => {
@@ -2144,7 +2394,7 @@ Object.entries(TRACKS).forEach(([tr, T_]) => {
     T_.nodes.push({ id: T_.examPrefix + L.n, type: 'exam', track: tr, lvl: L.n, icon: '🏆', name: 'Evaluación Nivel ' + L.n });
   });
 });
-const ALL_ITEMS = KICKS.concat(BOX, FLEX);
+const ALL_ITEMS = KICKS.concat(BOX, FLEX, JIU);
 const pil = (tr, p) => (tr === 'flex' ? FLEX_PILLARS : PILLARS)[p];
 const trackOfId = id => Object.keys(TRACKS).find(tr => TRACKS[tr].nodes.some(n => n.id === id));
 const ITEM = Object.fromEntries(ALL_ITEMS.map(k => [k.id, k]));
@@ -2233,6 +2483,78 @@ Object.assign(ANIM, {
 });
 
 
+const SUP = { g: 1, t: 90, x: 0, y: 0, L: { h: 90, k: 0, f: 0 }, R: { h: 84, k: 4, f: 0 }, aL: { u: 90, e: 0 }, aR: { u: 84, e: 6 } };
+const supi = o => Object.assign({}, SUP, o);
+Object.assign(ANIM, {
+  j_jg: { hl: 'L', f: [
+    ['Supino: brazo del oponente en tus manos', supi({ aL: { u: 90, e: 0 }, L: { h: 140, k: 150, f: 0 }, R: { h: 130, k: 150, f: 0 } }), 400, 300],
+    ['Gira la cadera hacia el brazo', supi({ t: 78, x: -4, L: { h: 120, k: 140, f: 0 }, R: { h: 140, k: 160, f: 0 } }), 500, 250],
+    ['Pasa la pierna sobre la cara', supi({ y: -14, L: { h: -120, k: 20, f: 0 }, R: { h: -95, k: 30, f: 0 } }), 500, 300],
+    ['Cadera arriba: extiende el codo', supi({ y: -22, x: -6, L: { h: -150, k: 0, f: 0 }, R: { h: -135, k: 5, f: 0 } }), 420, 600],
+    ['Suelta y vuelve a supino', supi({}), 400, 300]
+  ] },
+  j_am: { hl: null, f: [
+    ['Supino: brazo del oponente sujeto', supi({ t: 80, aL: { u: 90, e: 0 }, L: { h: 90, k: 0, f: 0 }, R: { h: 110, k: 20, f: 0 } }), 400, 300],
+    ['Codo a 90° a la altura del hombro', supi({ t: 80, aL: { u: 90, e: 90 }, L: { h: 90, k: 0, f: 0 }, R: { h: 110, k: 20, f: 0 } }), 420, 300],
+    ['Antebrazo barre el piso', supi({ t: 80, aL: { u: 90, e: 160 }, L: { h: 90, k: 0, f: 0 }, R: { h: 110, k: 20, f: 0 } }), 500, 500],
+    ['Suelta y vuelve al centro', supi({ t: 80, aL: { u: 40, e: 40 }, L: { h: 90, k: 0, f: 0 }, R: { h: 110, k: 20, f: 0 } }), 400, 300]
+  ] },
+  j_kim: { hl: null, f: [
+    ['Mano sobre la muñeca del oponente', supi({ t: 80, aL: { u: 60, e: 60 }, L: { h: 90, k: 0, f: 0 }, R: { h: 110, k: 20, f: 0 } }), 400, 300],
+    ['Codo pegado al costado del oponente', supi({ t: 80, aL: { u: 40, e: 100 }, L: { h: 90, k: 0, f: 0 }, R: { h: 110, k: 20, f: 0 } }), 420, 300],
+    ['Gira el brazo en arco hacia su espalda', supi({ t: 80, aL: { u: 90, e: 170 }, L: { h: 90, k: 0, f: 0 }, R: { h: 110, k: 20, f: 0 } }), 500, 500],
+    ['Vuelve a la posición inicial', supi({ t: 80, aL: { u: 60, e: 60 }, L: { h: 90, k: 0, f: 0 }, R: { h: 110, k: 20, f: 0 } }), 400, 300]
+  ] },
+  j_omo: { hl: 'R', f: [
+    ['Guardia: controla la manga', supi({ aL: { u: 90, e: 0 }, L: { h: 140, k: 160, f: 0 }, R: { h: 130, k: 160, f: 0 } }), 400, 300],
+    ['Pierna sobre el hombro', supi({ y: -6, t: 85, aL: { u: 90, e: 0 }, L: { h: -100, k: 40, f: 0 }, R: { h: 140, k: 150, f: 0 } }), 500, 300],
+    ['Gira la cadera: palanca del hombro', supi({ y: -14, s: 0.6, t: 70, aL: { u: 90, e: 20 }, L: { h: -110, k: 50, f: 0 }, R: { h: 140, k: 150, f: 0 } }), 500, 500],
+    ['Vuelve a guardia', supi({ aL: { u: 90, e: 0 }, L: { h: 140, k: 160, f: 0 }, R: { h: 130, k: 160, f: 0 } }), 400, 300]
+  ] },
+  j_kote: { hl: null, f: [
+    ['De pie: sujeta la mano del oponente', stp({ aL: { u: 70, e: 30 }, aR: { u: 50, e: 60 } }), 400, 300],
+    ['Gira la muñeca hacia el pulgar', stp({ t: -4, aL: { u: 70, e: 110 }, aR: { u: 50, e: 60 } }), 420, 350],
+    ['Baja la cadera y empuja el codo', stp({ t: -12, L: { k: 24 }, R: { k: 24 }, aL: { u: 70, e: 110 }, aR: { u: 50, e: 60 } }), 500, 500],
+    ['Suelta y vuelve a guardia', stp({ aL: { u: 70, e: 30 }, aR: { u: 50, e: 60 } }), 400, 300]
+  ] },
+  j_jgg: { hl: 'R', f: [
+    ['Guardia cerrada: piernas en la cintura', supi({ aL: { u: 90, e: 0 }, L: { h: 140, k: 160, f: 0 }, R: { h: 130, k: 160, f: 0 } }), 400, 300],
+    ['Cadera al lado: sube una pierna', supi({ t: 80, y: -6, aL: { u: 90, e: 0 }, L: { h: 110, k: 150, f: 0 }, R: { h: 140, k: 150, f: 0 } }), 500, 300],
+    ['Pierna sobre la cara, cadera arriba', supi({ t: 70, y: -18, x: -4, aL: { u: 90, e: 0 }, L: { h: -110, k: 60, f: 0 }, R: { h: -100, k: 70, f: 0 } }), 500, 300],
+    ['Extiende la cadera: codo bloqueado', supi({ t: 70, y: -22, x: -6, aL: { u: 90, e: 0 }, L: { h: -150, k: 0, f: 0 }, R: { h: -130, k: 10, f: 0 } }), 420, 600],
+    ['Suelta y vuelve a guardia', supi({ aL: { u: 90, e: 0 }, L: { h: 140, k: 160, f: 0 }, R: { h: 130, k: 160, f: 0 } }), 400, 300]
+  ] },
+  j_cad2: { hl: 'L', f: [
+    ['Montada: rodillas a los lados', supi({ aL: { u: 90, e: 0 }, L: { h: 90, k: 90, f: 0 }, R: { h: 100, k: 100, f: 0 } }), 400, 300],
+    ['Pasa una pierna sobre la cabeza', supi({ y: -12, aL: { u: 90, e: 0 }, L: { h: -120, k: 20, f: 0 }, R: { h: -100, k: 120, f: 0 } }), 500, 300],
+    ['Cadera arriba: cierra el ángulo', supi({ y: -20, x: -6, aL: { u: 90, e: 0 }, L: { h: -150, k: 0, f: 0 }, R: { h: -120, k: 120, f: 0 } }), 420, 600],
+    ['Suelta y vuelve a montada', supi({ aL: { u: 90, e: 0 }, L: { h: 90, k: 90, f: 0 }, R: { h: 100, k: 100, f: 0 } }), 400, 300]
+  ] }
+});
+Object.assign(ANIM, {
+  j_cad1: { hl: null, f: [
+    ANIM.j_am.f[0], ANIM.j_am.f[1],
+    ['Si se escapa: mantén la muñeca', ANIM.j_kim.f[0][1], 400, 300],
+    ANIM.j_kim.f[2], ANIM.j_am.f[3]
+  ] },
+  j_cad3: { hl: 'R', f: [
+    ANIM.j_omo.f[1], ANIM.j_omo.f[2],
+    ['Pasa la pierna a la cara y sube la cadera', ANIM.j_jg.f[2][1], 500, 300],
+    ANIM.j_jg.f[3], ANIM.j_jg.f[4]
+  ] }
+});
+Object.assign(ANIM, {
+  j_kg: { hl: 'R', f: ANIM.j_kim.f }, j_am2: { hl: null, f: ANIM.j_am.f }, j_kes: { hl: 'L', f: ANIM.j_jg.f },
+  j_ugar: { hl: 'R', f: ANIM.j_omo.f }, j_am3: { hl: null, f: ANIM.j_am.f }, j_kmu: { hl: null, f: ANIM.j_kote.f },
+  j_cad4: { hl: null, f: [ANIM.j_kim.f[0], ANIM.j_kim.f[1], ANIM.j_am.f[2], ANIM.j_am.f[3]] },
+  j_cad5: { hl: 'L', f: [ANIM.j_jgg.f[0], ANIM.j_jgg.f[3], ['Si se escapa: cambia a kimura', ANIM.j_kim.f[0][1], 400, 300], ANIM.j_kim.f[2]] },
+  j_cad6: { hl: 'L', f: [ANIM.j_cad2.f[0], ANIM.j_cad2.f[2], ANIM.j_am.f[2], ANIM.j_jg.f[4]] }
+});
+Object.assign(YT, {
+  j_jg: 'juji gatame armbar tutorial BJJ', j_am: 'americana keylock tutorial BJJ', j_kim: 'kimura grip tutorial BJJ', j_omo: 'omoplata tutorial BJJ',
+  j_kote: 'kote gaeshi wrist lock tutorial', j_jgg: 'armbar from guard tutorial BJJ', j_cad1: 'americana to kimura chain tutorial', j_cad2: 'armbar from mount tutorial BJJ', j_cad3: 'omoplata to armbar tutorial', j_kg: 'kimura from guard tutorial BJJ', j_am2: 'americana from mount tutorial', j_kes: 'kesa gatame armbar tutorial', j_ugar: 'ude garami tutorial BJJ', j_am3: 'americana from guard tutorial', j_kmu: 'kneeling kote gaeshi tutorial', j_cad4: 'kimura to americana chain tutorial', j_cad5: 'armbar to kimura chain tutorial', j_cad6: 'mount americana to armbar chain tutorial'
+});
+
 function poseOf(o) {
   return { g: o.g || 0, x: o.x || 0, y: o.y || 0, s: o.s == null ? 1 : (o.s > 0 && o.s < 1 ? 0.78 + 0.22 * o.s : o.s), t: o.t == null ? GUARD.t : o.t,
     L: Object.assign({}, GUARD.L, o.L), R: Object.assign({}, GUARD.R, o.R), aL: Object.assign({}, GUARD.aL, o.aL), aR: Object.assign({}, GUARD.aR, o.aR) };
@@ -2259,23 +2581,44 @@ function solve(p) {
   ['aL', 'aR'].forEach(l => { const a = p[l]; const abs = a.u + p.t; const elbow = add(sh, down(abs, FIG.ua)); out[l] = { sh, elbow, hand: add(elbow, down(abs + a.e, FIG.fa)) }; });
   return out;
 }
-function figSVG(p, hl, trail) {
+function figSVG(p, hl, trail, look) {
   const q = solve(p);
   const maxY = Math.max(q.L.ankle[1], q.L.toe[1], q.R.ankle[1], q.R.toe[1]);
   const ox = FIG.cx + p.x, oy = FIG.ground - ((1 - p.g) * maxY + p.g * 7) + p.y;
   const P = pt => [ox + p.s * pt[0], oy + pt[1]];
-  const ln = (a, b, c, w) => { const A = P(a), B = P(b); return `<line x1="${A[0].toFixed(1)}" y1="${A[1].toFixed(1)}" x2="${B[0].toFixed(1)}" y2="${B[1].toFixed(1)}" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/>`; };
   const near = p.s >= 0 ? 'R' : 'L', far = near === 'R' ? 'L' : 'R';
-  const leg = (l, isNear) => { const c = l === hl ? (isNear ? '#FF9600' : '#FDBA74') : (isNear ? '#334155' : '#A3B1C2'); const g = q[l]; return ln(g.hip, g.knee, c, 10) + ln(g.knee, g.ankle, c, 9) + ln(g.ankle, g.toe, c, 7); };
-  const arm = (l, isNear) => { const c = isNear ? '#475569' : '#B6C2CF'; const g = q[l]; return ln(g.sh, g.elbow, c, 8) + ln(g.elbow, g.hand, c, 7) + (() => { const H = P(g.hand); return `<circle cx="${H[0].toFixed(1)}" cy="${H[1].toFixed(1)}" r="6.5" fill="${isNear ? '#EF4444' : '#FCA5A5'}"/>`; })(); };
+  const f = v => v.toFixed(1);
+  const pal = look === 'partner'
+    ? { legN: '#0F766E', legNE: '#134E4A', legF: '#5EEAD4', legFE: '#0F766E', hot: '#0F766E', hotE: '#0F766E', armN: '#99F6E4', armNE: '#0F766E', armF: '#5EEAD4', armFE: '#0F766E', gloveN: '#22C55E', gloveF: '#86EFAC', torso: '#115E59', torsoE: '#042F2E', head: '#E9C7A4' }
+    : { legN: '#475569', legNE: '#1E293B', legF: '#94A3B8', legFE: '#64748B', hot: '#FF9600', hotE: '#B45309', armN: '#CBD5E1', armNE: '#475569', armF: '#94A3B8', armFE: '#64748B', gloveN: '#EF4444', gloveF: '#FCA5A5', torso: '#1E3A8A', torsoE: '#0B1B4D', head: '#FCD9B6' };
+  const seg = (a, b, w, col, edge) => { const A = P(a), B = P(b); const at = `x1="${f(A[0])}" y1="${f(A[1])}" x2="${f(B[0])}" y2="${f(B[1])}" stroke-linecap="round"`; return `<line ${at} stroke="${edge}" stroke-width="${w + 3}"/><line ${at} stroke="${col}" stroke-width="${w}"/>`; };
+  const dot = (a, r, col, edge) => { const A = P(a); return `<circle cx="${f(A[0])}" cy="${f(A[1])}" r="${r}" fill="${col}" stroke="${edge}" stroke-width="1.2"/>`; };
+  const shine = (a, r) => { const A = P(a); return `<circle cx="${f(A[0] - r * 0.35)}" cy="${f(A[1] - r * 0.35)}" r="${f(r * 0.4)}" fill="#FFFFFF" fill-opacity=".55"/>`; };
+  const leg = (l, isNear) => {
+    const hot = l === hl && !look;
+    const col = hot ? (isNear ? pal.hot : '#FDBA74') : (isNear ? pal.legN : pal.legF);
+    const edge = hot ? pal.hotE : (isNear ? pal.legNE : pal.legFE);
+    const g = q[l];
+    return seg(g.hip, g.knee, 10, col, edge) + seg(g.knee, g.ankle, 9, col, edge) + seg(g.ankle, g.toe, 7, col, edge) + dot(g.knee, 5, col, edge) + dot(g.ankle, 4, col, edge);
+  };
+  const arm = (l, isNear) => {
+    const col = isNear ? pal.armN : pal.armF, edge = isNear ? pal.armNE : pal.armFE;
+    const g = q[l];
+    const glove = isNear ? pal.gloveN : pal.gloveF;
+    return seg(g.sh, g.elbow, 8, col, edge) + seg(g.elbow, g.hand, 7, col, edge) + dot(g.elbow, 4.5, col, edge) + dot(g.hand, 6.5, glove, '#7F1D1D') + shine(g.hand, 6.5);
+  };
   const farArm = near === 'R' ? 'aL' : 'aR', nearArm = near === 'R' ? 'aR' : 'aL';
   const H = P(q.head);
+  const xs = [q.L.hip, q.R.hip, q.L.toe, q.R.toe, q.head, q.top].map(pt => P(pt)[0]);
+  const x0 = Math.min(...xs) - 8, x1 = Math.max(...xs) + 8;
+  const shadow = `<ellipse cx="${f((x0 + x1) / 2)}" cy="${FIG.ground + 1}" rx="${f((x1 - x0) / 2)}" ry="4" fill="#0F172A" fill-opacity=".14"/>`;
+  const torso = seg([0, 0], q.top, 14, pal.torso, pal.torsoE);
+  const head = `<circle cx="${f(H[0])}" cy="${f(H[1])}" r="${FIG.head}" fill="${pal.head}" stroke="#7C2D12" stroke-width="1.2"/><circle cx="${f(H[0] - 4)}" cy="${f(H[1] - 4)}" r="3" fill="#FFFFFF" fill-opacity=".55"/>`;
   let tr = '';
-  if (trail && trail.length > 1) tr = `<polyline points="${trail.map(t => t[0].toFixed(1) + ',' + t[1].toFixed(1)).join(' ')}" fill="none" stroke="#FF9600" stroke-opacity=".35" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round"/>`;
-  const svg = `<line x1="10" y1="${FIG.ground + 1}" x2="220" y2="${FIG.ground + 1}" stroke="#E2E8F0" stroke-width="4" stroke-linecap="round"/>` + tr +
-    arm(farArm, false) + leg(far, false) + ln([0, 0], q.top, '#334155', 12) +
-    `<circle cx="${H[0].toFixed(1)}" cy="${H[1].toFixed(1)}" r="${FIG.head}" fill="#334155"/>` + leg(near, true) + arm(nearArm, true);
-  const toe = hl ? P(q[hl].toe) : null;
+  if (trail && trail.length > 1) tr = `<polyline points="${trail.map(t => f(t[0]) + ',' + f(t[1])).join(' ')}" fill="none" stroke="#FF9600" stroke-opacity=".35" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round"/>`;
+  const ground = look ? '' : `<line x1="10" y1="${FIG.ground + 1}" x2="220" y2="${FIG.ground + 1}" stroke="#E2E8F0" stroke-width="4" stroke-linecap="round"/>`;
+  const svg = ground + shadow + tr + arm(farArm, false) + leg(far, false) + torso + head + leg(near, true) + arm(nearArm, true);
+  const toe = hl && !look ? P(q[hl].toe) : null;
   return { svg, toe };
 }
 
@@ -2300,26 +2643,56 @@ function animLoop(ts) {
 }
 function animState() {
   const F = AV.frames; const n = F.length;
-  if (AV.step !== null) return { pose: F[AV.step].pose, idx: AV.step };
+  if (AV.step !== null) return { pose: F[AV.step].pose, idx: AV.step, pi: AV.step, u: 0 };
   const total = F[0].hold + F.slice(1).reduce((a, f) => a + f.ms + f.hold, 0);
   const tt = AV.t % total; if (tt < AV.prevTT) AV.trail = []; AV.prevTT = tt;
-  let acc = F[0].hold; if (tt < acc) return { pose: F[0].pose, idx: 0 };
+  let acc = F[0].hold; if (tt < acc) return { pose: F[0].pose, idx: 0, pi: 0, u: 0 };
   for (let i = 1; i < n; i++) {
     const f = F[i];
-    if (tt < acc + f.ms) { let u = (tt - acc) / f.ms; u = u < .5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2; return { pose: lerpPose(F[i - 1].pose, f.pose, u), idx: i }; }
+    if (tt < acc + f.ms) { let u = (tt - acc) / f.ms; u = u < .5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2; return { pose: lerpPose(F[i - 1].pose, f.pose, u), idx: i, pi: i - 1, u }; }
     acc += f.ms;
-    if (tt < acc + f.hold) return { pose: f.pose, idx: i };
+    if (tt < acc + f.hold) return { pose: f.pose, idx: i, pi: i, u: 0 };
     acc += f.hold;
   }
-  return { pose: F[n - 1].pose, idx: n - 1 };
+  return { pose: F[n - 1].pose, idx: n - 1, pi: n - 1, u: 0 };
+}
+/* Defensor: plantillas de movimiento real (guardia, bloqueo, check, paso atrás, esquiva, pull back, parry, jab) */
+const TEMPL = {
+  guard: {},
+  blockHigh: { t: -6, aL: { u: 20, e: 168 }, aR: { u: 15, e: 172 }, L: { k: 24 }, R: { k: 24 } },
+  checkLow: { t: -4, L: { h: 70, k: 110, f: 0 }, aL: { u: 25, e: 150 }, aR: { u: 10, e: 60 } },
+  stepBack: { x: 96, t: -6, L: { h: 14, k: 16 }, R: { h: -24, k: 22 } },
+  slip: { x: 80, t: -14, L: { k: 26 }, R: { k: 26 }, aL: { u: 20, e: 150 } },
+  roll: { x: 88, t: -16, L: { h: 42, k: 62 }, R: { h: -6, k: 38 } },
+  pull: { x: 100, t: 16, L: { h: 30, k: 8 }, R: { h: -12, k: 28 } },
+  parry: { t: -4, aR: { u: 62, e: 70 }, aL: { u: 30, e: 150 } },
+  jab: { t: -6, aL: { u: 95, e: 0 }, aR: { u: 20, e: 150 } }
+};
+const DEF_TYPE = {
+  teep: 'stepBack', snap: 'checkLow', lowext: 'checkLow', lowint: 'checkLow', calf: 'checkLow', mid: 'checkLow', switch: 'blockHigh', pushlat: 'stepBack', side: 'blockHigh', oblique: 'checkLow', high: 'blockHigh', question: 'guard', axe: 'stepBack', crescent: 'blockHigh', back: 'blockHigh', hook: 'blockHigh', spinside: 'blockHigh', jfront: 'blockHigh', jswitch: 'stepBack', tornado: 'stepBack', wheel: 'blockHigh', butterfly: 'stepBack', k540: 'blockHigh',
+  b_kblock: 'blockHigh', b_kcounter: 'checkLow', b_check: 'checkLow', b_block: 'blockHigh', b_parry: 'parry', b_slip: 'slip', b_counter: 'slip', b_roll: 'roll', b_pull: 'pull', b_catch: 'pull', b_range: 'stepBack', b_steps: 'stepBack', b_pivot: 'stepBack', b_guard: 'guard'
+};
+/* El defensor reacciona en el momento del impacto, sincronizado con cada cuadro del atacante */
+function partnerPose(st) {
+  const id = AV.id, box = id.startsWith('b_'), n = AV.frames.length, impact = Math.max(1, Math.floor(n / 2));
+  const seq = AV.frames.map((_, i) => {
+    const react = box ? i === impact : i >= impact;
+    const key = react ? (box ? 'jab' : (DEF_TYPE[id] || 'guard')) : 'guard';
+    return poseOf(Object.assign({ x: 84, s: -1 }, TEMPL[key]));
+  });
+  const b = seq[st.idx], p = seq[st.pi];
+  return st.u > 0 ? lerpPose(p, b, st.u) : b;
 }
 function drawAnim() {
   if (!AV.el || !AV.frames) return;
   const st = animState(); const hl = ANIM[AV.id].hl;
   const r = figSVG(st.pose, hl, AV.step === null ? AV.trail : null);
+  const hasP = !/^(f_|j_)/.test(AV.id);
+  const pr = hasP ? figSVG(partnerPose(st), null, null, 'partner') : { svg: '' };
   if (r.toe && AV.step === null) { AV.trail.push(r.toe); if (AV.trail.length > 26) AV.trail.shift(); }
-  AV.el.innerHTML = `<svg viewBox="0 0 230 226" class="w-full h-full">${r.svg}</svg>`;
+  AV.el.innerHTML = `<svg viewBox="0 0 230 226" class="w-full h-full">${pr.svg}${r.svg}</svg>`;
   const lb = document.getElementById('animlabel'); if (lb) lb.textContent = AV.frames[st.idx].label;
+  const ct = document.getElementById('coachtext'); if (ct) ct.textContent = AV.frames[st.idx].label;
   const ph = document.getElementById('animphase'); if (ph) ph.textContent = `Fase ${st.idx + 1} de ${AV.frames.length}`;
 }
 function viewerHTML(id, compact) {
@@ -2528,7 +2901,7 @@ function bottomNav() {
   </nav>`;
 }
 function trackSwitch(key, act) {
-  return `<div class="grid grid-cols-3 gap-1 p-1 rounded-2xl bg-slate-100">${Object.entries(TRACKS).map(([id, T_]) =>
+  return `<div class="grid grid-cols-4 gap-1 p-1 rounded-2xl bg-slate-100">${Object.entries(TRACKS).map(([id, T_]) =>
     `<button data-act="${act}" data-arg="${id}" class="rounded-xl py-2 font-black text-[13px] ${UI[key] === id ? 'bg-white shadow text-slate-800' : 'text-slate-400'}">${T_.icon} ${T_.name}</button>`).join('')}</div>`;
 }
 
@@ -2609,6 +2982,76 @@ function renderLibrary() {
 }
 
 /* ---------- Hoja de lección ---------- */
+
+function coachSVG() {
+  return `<svg viewBox="0 0 80 80" width="100%" height="100%" aria-hidden="true">
+    <rect x="12" y="50" width="10" height="22" rx="5" fill="#F8FAFC" stroke="#1E3A8A" stroke-width="2"/>
+    <rect x="58" y="50" width="10" height="22" rx="5" fill="#F8FAFC" stroke="#1E3A8A" stroke-width="2"/>
+    <rect x="22" y="48" width="36" height="30" rx="10" fill="#F8FAFC" stroke="#1E3A8A" stroke-width="2"/>
+    <path d="M32 48 L40 60 L48 48" fill="none" stroke="#1E3A8A" stroke-width="2.5" stroke-linejoin="round"/>
+    <rect x="22" y="62" width="36" height="5" fill="#1E3A8A"/>
+    <circle cx="40" cy="30" r="17" fill="#F5C9A0" stroke="#7C2D12" stroke-width="2"/>
+    <path d="M23 25 Q40 15 57 25 L57 29 Q40 20 23 29 Z" fill="#DC2626"/>
+    <circle cx="34" cy="34" r="2.3" fill="#1F2937"/>
+    <circle cx="46" cy="34" r="2.3" fill="#1F2937"/>
+    <path d="M34 40 Q40 45 46 40" fill="none" stroke="#7C2D12" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="36" cy="24" r="2" fill="#FFFFFF" fill-opacity=".6"/>
+  </svg>`;
+}
+function coachBubble(text, id) {
+  return `<div style="display:flex;align-items:flex-end;gap:8px">
+    <div class="kai-bob" style="flex:0 0 64px;width:64px;height:64px">${coachSVG()}</div>
+    <div style="flex:1;background:#fff;border:2px solid #E2E8F0;border-radius:16px;padding:8px 12px">
+      <div style="font-size:11px;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.04em">Coach Kai</div>
+      <div ${id ? `id="${id}"` : ''} style="font-size:14px;font-weight:700;color:#334155;line-height:1.35">${text}</div>
+    </div></div>`;
+}
+
+
+function aiOn() { try { return localStorage.getItem('kickpath_ai') === '1'; } catch (e) { return false; } }
+function setAI(on) { try { localStorage.setItem('kickpath_ai', on ? '1' : '0'); } catch (e) {} render(); }
+function aiPrompt(k) {
+  return 'Soy principiante de MMA y entreno en casa. Te adjunto un video mío haciendo: ' + k.name + ' (' + k.es + '). ' +
+    'Lo que debe lograr: ' + k.keys.join(' ') + ' ' +
+    'Error común que quiero evitar: ' + (k.err || 'no especificado') + ' ' +
+    'Revisa el video y dime: 1) el error principal que se ve, 2) qué le falta a mi técnica, 3) cómo corregirlo en 3 pasos cortos y simples.';
+}
+function copyAI(id) {
+  const k = ITEM[id]; if (!k) return;
+  const txt = aiPrompt(k);
+  try { navigator.clipboard.writeText(txt); } catch (e) {}
+  const m = document.getElementById('aimsg-' + id);
+  if (m) m.textContent = '✅ Pedido copiado. Ahora abre la IA que uses, adjunta tu video y pégalo.';
+}
+function openAI(url) { window.open(url, '_blank', 'noopener'); }
+function onMyVideo(el, id) {
+  const f = el.files && el.files[0]; if (!f) return;
+  const v = document.getElementById('myvid-' + id); if (!v) return;
+  v.src = URL.createObjectURL(f); v.style.display = 'block';
+}
+function aiBlock(k) {
+  const box = 'margin-top:12px;border-radius:16px;padding:12px;border:2px solid #E2E8F0;background:#F8FAFC';
+  if (!aiOn()) return `<div style="${box}">
+    <div style="font-size:14px;font-weight:800;color:#334155">🤖 Revisión con IA (opcional)</div>
+    <div style="font-size:12px;font-weight:700;color:#64748B;margin-top:4px">Necesita internet solo en este apartado. Actívala para subir tu video y que te diga qué corregir.</div>
+    <button onclick="setAI(true)" style="margin-top:8px;width:100%;border-radius:14px;padding:10px;font-weight:800;background:#4F46E5;color:#fff;border:0">Activar revisión con IA</button></div>`;
+  const off = online() ? '' : 'disabled';
+  return `<div style="${box}">
+    <div style="font-size:14px;font-weight:800;color:#334155">🤖 Revisión con IA</div>
+    ${online() ? '' : '<div style="font-size:12px;font-weight:700;color:#B45309;margin-top:4px">📴 Sin conexión: conéctate para usar la revisión.</div>'}
+    <label style="display:block;margin-top:8px;font-size:13px;font-weight:700;color:#334155">🎥 Sube tu video (se queda en tu celular)
+      <input type="file" accept="video/*" capture="environment" onchange="onMyVideo(this,'${k.id}')" style="display:block;margin-top:6px;width:100%"></label>
+    <video id="myvid-${k.id}" controls playsinline style="display:none;width:100%;border-radius:12px;margin-top:8px"></video>
+    <button ${off} onclick="copyAI('${k.id}')" style="margin-top:8px;width:100%;border-radius:14px;padding:10px;font-weight:800;background:#4F46E5;color:#fff;border:0;opacity:${online() ? 1 : .5}">1. Copiar pedido</button>
+    <div style="font-size:12px;font-weight:700;color:#64748B;margin-top:6px">Luego abre la IA que uses (no necesitas cuenta de Claude), adjunta tu video y pega el pedido.</div>
+    <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">
+      <button ${off} onclick="openAI('https://claude.ai/new')" style="flex:1;min-width:90px;border-radius:12px;padding:8px;font-weight:800;font-size:12px;background:#fff;color:#334155;border:2px solid #E2E8F0;opacity:${online() ? 1 : .5}">Claude</button>
+      <button ${off} onclick="openAI('https://chatgpt.com')" style="flex:1;min-width:90px;border-radius:12px;padding:8px;font-weight:800;font-size:12px;background:#fff;color:#334155;border:2px solid #E2E8F0;opacity:${online() ? 1 : .5}">ChatGPT</button>
+      <button ${off} onclick="openAI('https://gemini.google.com')" style="flex:1;min-width:90px;border-radius:12px;padding:8px;font-weight:800;font-size:12px;background:#fff;color:#334155;border:2px solid #E2E8F0;opacity:${online() ? 1 : .5}">Gemini</button>
+    </div>
+    <div id="aimsg-${k.id}" style="font-size:12px;font-weight:700;color:#334155;margin-top:6px"></div>
+    <button onclick="setAI(false)" style="margin-top:8px;font-size:12px;font-weight:800;color:#64748B;background:none;border:0;text-decoration:underline">Desactivar revisión con IA</button></div>`;
+}
 function renderSheet() {
   const id = UI.sheet; const k = ITEM[id]; const L = levelOf(k);
   const first = !S.done[id]; const st = statusOf(id);
@@ -2631,6 +3074,7 @@ function renderSheet() {
         <div><div class="text-xs font-extrabold uppercase" style="color:${L.color}">${TRACKS[k.track].name} · Nivel ${k.lvl} · ${L.title}</div>
           <div class="text-2xl font-black leading-tight">${k.name}</div><div class="text-sm font-bold text-slate-500">${k.es}</div></div>
       </div>
+      <div class="mt-3">${coachBubble(k.keys[0], 'coachtext')}</div>
       <div class="mt-3">${viewerHTML(id, false)}</div>
       ${online() ? ytLink(YT[id] || k.name + ' tutorial', '▶ Ver videos reales en YouTube', 'mt-2 block w-full text-center rounded-2xl py-3 font-black text-white bg-red-500') : '<div class="mt-2 text-center rounded-2xl py-2 text-xs font-black bg-slate-100 text-slate-400">📴 Sin conexión: los videos aparecen cuando vuelvas a tener internet</div>'}
       <p class="mt-3 text-sm font-semibold text-slate-600">${k.desc}</p>
@@ -2638,6 +3082,9 @@ function renderSheet() {
         <div class="font-black text-sm mb-1">🎯 Puntos clave de técnica</div>
         <ul class="space-y-1">${k.keys.map(x => `<li class="text-sm font-bold text-slate-700">✓ ${x}</li>`).join('')}</ul>
       </div>
+      ${k.err ? `<div class="mt-2 rounded-2xl p-3 bg-red-50 text-sm font-bold text-red-700">⚠️ Error común: ${k.err}</div>` : ''}
+      ${k.def ? `<div style="margin-top:8px;border-radius:16px;padding:12px;background:#ECFDF5;font-size:14px;font-weight:700;color:#065F46">🛡️ Cómo defenderlo: ${k.def}</div>` : ''}
+      ${k.track !== 'flex' ? aiBlock(k) : ''}
       <div class="grid grid-cols-2 gap-1 p-1 mt-4 rounded-2xl bg-slate-100">
         <button data-act="setmode" data-arg="full" class="rounded-xl py-2 font-black text-sm ${!isExpress() ? 'bg-white shadow text-slate-800' : 'text-slate-400'}">💪 Completa</button>
         <button data-act="setmode" data-arg="express" class="rounded-xl py-2 font-black text-sm ${isExpress() ? 'bg-white shadow text-slate-800' : 'text-slate-400'}">⚡ Express</button>
@@ -2763,7 +3210,7 @@ function renderPlayer() {
         ${st.side ? `<span class="px-3 py-1 rounded-full text-xs font-black bg-slate-800 text-white">${st.side}</span>` : ''}
         ${ytLink(showAnim ? (YT[k.id] || k.name) : 'cómo hacer ' + st.ex.n, '▶ Video', 'px-3 py-1 rounded-full text-xs font-black bg-red-50 text-red-500')}
       </div>
-      <h2 class="mt-3 text-2xl font-black text-center leading-tight">${st.ex.n}</h2>`;
+      <h2 class="mt-3 text-2xl font-black text-center leading-tight">${st.ex.n}</h2>${coachBubble((st.ex.c || [''])[0])}`;
     const anim = showAnim ? `<div class="mt-4">${viewerHTML(k.id, true)}</div>` : '';
     const cues = `<details class="mt-4 rounded-2xl border-2 border-slate-100 p-3" ${P.i < 3 ? 'open' : ''}>
         <summary class="font-black text-sm cursor-pointer">📋 ¿Cómo se hace?</summary>
@@ -3040,7 +3487,7 @@ function renderSettings() {
       <div class="text-sm font-bold text-slate-500 mt-1"><b>iPhone (Safari):</b> botón Compartir (□↑) → <b>Agregar a inicio</b>.<br><b>Android (Chrome):</b> menú ⋮ → <b>Agregar a la pantalla principal</b>.</div>
     </div>
     <button data-act="reset" class="w-full rounded-2xl border-2 border-red-200 text-red-500 p-4 font-black">🗑️ Reiniciar todo el progreso</button>
-    <div class="text-center text-xs font-bold text-slate-400 pt-2">KickPath MMA v4.0 · Funciona sin internet · Tu progreso se guarda en este celular.</div>
+    <div class="text-center text-xs font-bold text-slate-400 pt-2">KickPath MMA v5.0 · Funciona sin internet · Tu progreso se guarda en este celular.</div>
   </div>`;
 }
 
