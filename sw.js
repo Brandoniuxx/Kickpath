@@ -1,5 +1,5 @@
 /* KickPath MMA — Service Worker: funciona sin internet después de la primera visita */
-const CACHE = 'kickpath-v26';
+const CACHE = 'kickpath-v27';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon.svg', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {

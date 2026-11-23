@@ -2902,6 +2902,20 @@ const SCENE = {
     return { A, O };
   })()
 };
+/* Kimura desde la guardia: el atacante de espalda sujeta la muñeca y gira el brazo del oponente */
+SCENE.j_kg = (() => {
+  const gH = [[-0.3, 0.5, -0.25], [-0.2, 0.6, -0.3], [-0.1, 0.6, -0.3], [-0.2, 0.6, -0.3], [-0.3, 0.5, -0.25]];
+  const gE = [null, [-0.3, 0.5, -0.36], [-0.2, 0.3, -0.36], [-0.25, 0.4, -0.36], null];
+  const A = SCENE.j_jgg.A.map((a, i) => Object.assign({}, a, { haR: gH[i] }, gE[i] ? { elR: gE[i] } : {}));
+  const O = SCENE.j_jgg.O.map((o, i) => Object.assign({}, o, (i === 0 || i === 4) ? {} : { elR: [-0.22, 0.76, -0.28], haR: [0.1, 0.62, -0.38] }));
+  return { A, O };
+})();
+/* Americana desde la guardia: el brazo del oponente queda sobre la pierna del atacante y se cierra el hombro */
+SCENE.j_am3 = (() => {
+  const A = SCENE.j_jgg.A.map((a, i) => (i === 0 || i === 4) ? a : Object.assign({}, a, { haR: [-0.3, 0.4 - 0.05 * i, -0.3], elR: [-0.3, 0.3, -0.36] }));
+  const O = SCENE.j_jgg.O.map((o, i) => Object.assign({}, o, { elR: [-0.34, 0.5 + 0.1 * (i % 2), -0.3], haR: [-0.2, 0.2, -0.3] }));
+  return { A, O };
+})();
 /* Armbar desde el lado: misma base que el armbar de guardia, con el contrincante a un lado */
 SCENE.j_kes = {
   A: SCENE.j_jgg.A,
