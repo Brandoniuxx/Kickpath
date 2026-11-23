@@ -2882,6 +2882,24 @@ const SCENE = {
       Object.assign({}, oBase, { haL: [-0.3, 0.12, 0.45] })
     ];
     return { A, O };
+  })(),
+  j_am2: (() => {
+    // Americana desde montada: el atacante está sentado sobre el pecho del oponente, que está tendido
+    const oBase = { head: [-0.62, 0.14, 0], neck: [-0.48, 0.13, 0], shL: [-0.42, 0.13, 0.2], shR: [-0.42, 0.13, -0.2], elL: [-0.36, 0.13, 0.36], elR: [-0.3, 0.3, -0.3], haL: [-0.2, 0.13, 0.45], haR: [-0.2, 0.13, -0.3], pel: [0.02, 0.13, 0], knL: [0.25, 0.14, 0.2], knR: [0.25, 0.14, -0.2], ftL: [0.5, 0.14, 0.12], ftR: [0.5, 0.14, -0.12] };
+    const aBase = { head: [-0.12, 1.12, 0], neck: [-0.1, 0.92, 0], shL: [-0.14, 0.9, 0.2], shR: [-0.14, 0.9, -0.2], elL: [-0.3, 0.7, 0.3], elR: [-0.2, 0.45, -0.35], haL: [-0.32, 0.36, 0.1], haR: [-0.22, 0.14, -0.22], pel: [0.02, 0.45, 0], knL: [0.2, 0.1, 0.25], knR: [0.2, 0.1, -0.25], ftL: [0.42, 0.1, 0.2], ftR: [0.42, 0.1, -0.2] };
+    const O = [
+      Object.assign({}, oBase),
+      Object.assign({}, oBase, { elR: [-0.34, 0.36, -0.3] }),
+      Object.assign({}, oBase, { elR: [-0.36, 0.34, -0.3], haR: [-0.2, 0.14, -0.22] }),
+      Object.assign({}, oBase)
+    ];
+    const A = [
+      Object.assign({}, aBase),
+      Object.assign({}, aBase, { elR: [-0.24, 0.42, -0.36] }),
+      Object.assign({}, aBase, { elR: [-0.26, 0.4, -0.38], haR: [-0.2, 0.14, -0.22] }),
+      Object.assign({}, aBase)
+    ];
+    return { A, O };
   })()
 };
 function sceneSVG(P, who) {
