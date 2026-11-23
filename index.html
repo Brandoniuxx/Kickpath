@@ -2152,13 +2152,13 @@ const JIU = [
       [T('Sombra: entrada a juji-gatame, 30 s', 30, 1, ['Movimientos fluidos, sin tirones.', 'Repite el orden de los 4 tiempos.']), T('Sombra: cadera al brazo, 30 s', 30, 1, ['La cadera nunca se separa del brazo.', 'Exhala al cerrar.'])]) },
   { id: 'j_am', lvl: 1, icon: '🔄', name: 'Americana (palanca de hombro)', es: 'Rotación del hombro desde el lado',
     desc: 'Con el codo a 90° a la altura del hombro, llevas el antebrazo al piso y presionas el hombro del oponente.',
-    keys: ['Codo a la altura de su hombro, no por encima.', 'El antebrazo barre hacia el piso en arco.', 'Pecho sobre su hombro, peso controlado.'],
+    keys: ['Desde montada o lado: fija su muñeca contra el piso con una mano, con su brazo a 90°.', 'Pasa tu otra mano por debajo de su codo y sujeta tu propia muñeca (figura de cuatro).', 'Jala su codo hacia sus costillas para apretar el hombro, sin girar el cuerpo.'],
     err: 'Subir el codo por encima de la cabeza: estresas el hombro sin palanca.',
     plan: JPLAN([R('Americana en 3 tiempos: codo a 90° – antebrazo al piso – suelta', 5, 1, ['1) Codo a 90° a la altura del hombro del oponente.', '2) Lleva el antebrazo al piso en arco, sin subir el codo.', '3) Suelta despacio y vuelve al centro.']), R('Sombra con pausa de 2 s al bajar el antebrazo', 6, 1, ['Respira mientras mantienes el codo a 90°.', 'Sin tirones.'])],
       [T('Sombra: americana en cadena suave, 30 s', 30, 1, ['El codo siempre a la altura del hombro.', 'Cambia de lado a mitad de serie.']), T('Sombra: pecho sobre el hombro, 30 s', 30, 1, ['Pecho pesado, espalda larga.', 'Exhala al bajar.'])]) },
   { id: 'j_kim', lvl: 1, icon: '🌀', name: 'Kimura (gyaku-ude-garami)', es: 'Rotación del hombro con el brazo en forma de 4',
     desc: 'Sujetas la muñeca del oponente y giras su brazo hacia atrás, sobre su espalda, con el codo pegado a su costado.',
-    keys: ['Agarre de muñeca con tu mano en “pulgar abajo”.', 'Codo del oponente pegado a su costado.', 'Gira el brazo como un volante, sin tirar hacia arriba.'],
+    keys: ['Figura de cuatro: una mano sujeta su muñeca con los dedos de un lado y el pulgar del otro, sin el pulgar envolvente.', 'Tu otra mano pasa por debajo de su tríceps y se sujeta la muñeca (figura de cuatro).', 'Pega su codo a su costado y gira su brazo hacia su espalda, sin tirar hacia arriba.'],
     err: 'No controlar el codo del oponente: el brazo se suelta.',
     plan: JPLAN([R('Kimura en 4 tiempos: agarre – codo – giro – suelta', 5, 1, ['1) Sujeta la muñeca con la mano en “pulgar abajo”.', '2) Controla el codo contra su costado.', '3) Gira el brazo en arco hacia su espalda.', '4) Suelta y regresa a la posición inicial.']), R('Sombra lenta con pausa de 2 s en el giro', 6, 1, ['Pausa al llegar al límite del hombro.', 'Sin apurarte.'])],
       [T('Sombra: agarre y giro, 30 s', 30, 1, ['Cambia de brazo a mitad.', 'El codo siempre pegado.']), T('Sombra: kimura con respiración, 30 s', 30, 1, ['Exhala en el giro.', 'Hombro relajado, no encogido.'])]) },
@@ -2176,7 +2176,7 @@ const JIU = [
       [T('Sombra: agarre y giro, 30 s', 30, 1, ['Cambia de mano a mitad.', 'Baja la cadera en cada giro.']), T('Sombra: cadera baja y estable, 30 s', 30, 1, ['Rodillas flexionadas.', 'Espalda neutra.'])]) },
   { id: 'j_jgg', lvl: 2, icon: '🦾', name: 'Juji-gatame desde la guardia', es: 'Armbar desde la guardia cerrada',
     desc: 'Con las piernas en la cintura del oponente, cambias la cadera a la línea del brazo y extiendes el codo.',
-    keys: ['Cierra la guardia con los tobillos cruzados.', 'Pasa una pierna sobre la cara del oponente.', 'Sube la cadera hasta bloquear el codo.'],
+    keys: ['Rompe su postura: jala su cabeza hacia abajo con el cuello o el cuello del gi.', 'Agarra su muñeca del mismo lado y cruza el agarre sobre el codo o la manga.', 'Pasa una pierna sobre su cara y sube la cadera hasta bloquear el codo.'],
     err: 'Dejar las rodillas abiertas: el brazo se libera.',
     plan: JPLAN([R('Juji-gatame desde guardia en 4 tiempos: guardia – cadera – pierna – cierre', 5, 1, ['1) Guardia cerrada: tobillos cruzados.', '2) Cadera al lado del brazo, sube una pierna.', '3) Pierna sobre la cara, sube la cadera.', '4) Extiende el codo despacio y suelta.']), R('Sombra lenta con pausa de 2 s', 6, 1, ['Mantén la guardia cerrada todo el tiempo.', 'Respira.'])],
       [T('Sombra: entrada desde guardia, 30 s', 30, 1, ['Movimientos ordenados.', 'Vuelve a guardia al final de cada repetición.']), T('Sombra: cadera arriba, 30 s', 30, 1, ['Sube la cadera sin apoyar las manos.', 'Exhala al subir.'])]) },
@@ -2640,7 +2640,8 @@ function solve(p) {
   ['aL', 'aR'].forEach(l => { const a = p[l]; const abs = a.u + p.t; const elbow = add(sh, down(abs, FIG.ua)); out[l] = { sh, elbow, hand: add(elbow, down(abs + a.e, FIG.fa)) }; });
   return out;
 }
-function figSVG(p, hl, trail, look) {
+function figSVG(p, hl, trail, look) { return figSVG3D(p, hl, trail, look); }
+function figSVG2D(p, hl, trail, look) {
   const q = solve(p);
   const maxY = Math.max(q.L.ankle[1], q.L.toe[1], q.R.ankle[1], q.R.toe[1]);
   const ox = FIG.cx + p.x, oy = FIG.ground - ((1 - p.g) * maxY + p.g * 7) + p.y;
@@ -2681,6 +2682,59 @@ function figSVG(p, hl, trail, look) {
   return { svg, toe };
 }
 
+/* 3D: el esqueleto se reconstruye con profundidad (lado cercano y lejano) y se gira con el dedo */
+const VIEW = { yaw: 0 };
+function figSVG3D(p, hl, trail, look) {
+  const q = solve(p);
+  const maxY = Math.max(q.L.ankle[1], q.L.toe[1], q.R.ankle[1], q.R.toe[1]);
+  const ox = FIG.cx + p.x, oy = FIG.ground - ((1 - p.g) * maxY + p.g * 7) + p.y;
+  const near = p.s >= 0 ? 'R' : 'L';
+  const c = Math.cos(VIEW.yaw), sn = Math.sin(VIEW.yaw);
+  const sideZ = l => (l === near ? 14 : -14);
+  // Todas las figuras giran alrededor del mismo centro: el origen de cada una también rota
+  const J = (pt, z) => { const lx = p.s * pt[0]; const Xr = lx * c + z * sn, Zr = -lx * sn + z * c; return { x: FIG.cx + p.x * c + Xr, y: oy + pt[1], d: Zr - p.x * sn }; };
+  const f = v => v.toFixed(1);
+  const pal = look === 'solo'
+    ? { legN: '#64748B', legNE: '#64748B', legF: '#64748B', legFE: '#64748B', hot: '#64748B', hotE: '#64748B', armN: '#64748B', armNE: '#64748B', armF: '#64748B', armFE: '#64748B', gloveN: '#64748B', gloveF: '#64748B', torso: '#64748B', torsoE: '#64748B', head: '#64748B' }
+    : look === 'partner'
+    ? { legN: '#0F766E', legNE: '#134E4A', legF: '#5EEAD4', legFE: '#0F766E', hot: '#0F766E', hotE: '#0F766E', armN: '#99F6E4', armNE: '#0F766E', armF: '#5EEAD4', armFE: '#0F766E', gloveN: '#22C55E', gloveF: '#86EFAC', torso: '#115E59', torsoE: '#042F2E', head: '#E9C7A4' }
+    : { legN: '#475569', legNE: '#1E293B', legF: '#94A3B8', legFE: '#64748B', hot: '#FF9600', hotE: '#B45309', armN: '#CBD5E1', armNE: '#475569', armF: '#94A3B8', armFE: '#64748B', gloveN: '#EF4444', gloveF: '#FCA5A5', torso: '#1E3A8A', torsoE: '#0B1B4D', head: '#FCD9B6' };
+  const items = [], pts = [];
+  const seg = (A, B, w, col, edge) => items.push({ d: (A.d + B.d) / 2, svg: `<line x1="${f(A.x)}" y1="${f(A.y)}" x2="${f(B.x)}" y2="${f(B.y)}" stroke="${edge}" stroke-width="${w + 3}" stroke-linecap="round"/><line x1="${f(A.x)}" y1="${f(A.y)}" x2="${f(B.x)}" y2="${f(B.y)}" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/>` });
+  const dot = (A, r, col, edge) => items.push({ d: A.d, svg: `<circle cx="${f(A.x)}" cy="${f(A.y)}" r="${r}" fill="${col}" stroke="${edge}" stroke-width="1.2"/>` });
+  const shine = (A, r) => items.push({ d: A.d + 0.01, svg: `<circle cx="${f(A.x - r * 0.35)}" cy="${f(A.y - r * 0.35)}" r="${f(r * 0.4)}" fill="#FFFFFF" fill-opacity=".55"/>` });
+  ['L', 'R'].forEach(l => {
+    const g = q[l], z = sideZ(l), isNear = l === near, hot = l === hl && !look;
+    const col = hot ? (isNear ? pal.hot : '#FDBA74') : (isNear ? pal.legN : pal.legF);
+    const edge = hot ? pal.hotE : (isNear ? pal.legNE : pal.legFE);
+    const hip = J([0, 0], z), kn = J(g.knee, z), an = J(g.ankle, z), to = J(g.toe, z);
+    seg(hip, kn, 10, col, edge); seg(kn, an, 9, col, edge); seg(an, to, 7, col, edge); dot(kn, 5, col, edge); dot(an, 4, col, edge);
+    pts.push(hip, to);
+  });
+  ['aL', 'aR'].forEach(a => {
+    const side = a === 'aL' ? 'L' : 'R', g = q[a], z = sideZ(side), isNear = side === near;
+    const col = isNear ? pal.armN : pal.armF, edge = isNear ? pal.armNE : pal.armFE, glove = isNear ? pal.gloveN : pal.gloveF;
+    const sh = J(g.sh, z), el = J(g.elbow, z), hd = J(g.hand, z);
+    seg(sh, el, 8, col, edge); seg(el, hd, 7, col, edge); dot(el, 4.5, col, edge); dot(hd, 6.5, glove, '#7F1D1D'); shine(hd, 6.5);
+    pts.push(hd);
+  });
+  const top = J(q.top, 0), H = J(q.head, 0), root = J([0, 0], 0);
+  items.push({ d: (root.d + top.d) / 2, svg: `<line x1="${f(root.x)}" y1="${f(root.y)}" x2="${f(top.x)}" y2="${f(top.y)}" stroke="${pal.torsoE}" stroke-width="17" stroke-linecap="round"/><line x1="${f(root.x)}" y1="${f(root.y)}" x2="${f(top.x)}" y2="${f(top.y)}" stroke="${pal.torso}" stroke-width="14" stroke-linecap="round"/>` });
+  const hipL = J([0, 0], sideZ('L')), hipR = J([0, 0], sideZ('R')), shL = J(q.aL.sh, sideZ('L')), shR = J(q.aR.sh, sideZ('R'));
+  seg(hipL, hipR, 12, pal.torso, pal.torsoE); seg(shL, shR, 12, pal.torso, pal.torsoE);
+  items.push({ d: H.d + 0.5, svg: `<circle cx="${f(H.x)}" cy="${f(H.y)}" r="${FIG.head}" fill="${pal.head}" stroke="#7C2D12" stroke-width="1.2"/><circle cx="${f(H.x - 4)}" cy="${f(H.y - 4)}" r="3" fill="#FFFFFF" fill-opacity=".55"/>` });
+  const xs = pts.concat([top, H]).map(pt => pt.x);
+  const x0 = Math.min(...xs) - 8, x1 = Math.max(...xs) + 8;
+  const shadow = `<ellipse cx="${f((x0 + x1) / 2)}" cy="${FIG.ground + 1}" rx="${f((x1 - x0) / 2)}" ry="4" fill="#0F172A" fill-opacity=".14"/>`;
+  let tr = '';
+  if (trail && trail.length > 1) tr = `<polyline points="${trail.map(t => f(t[0]) + ',' + f(t[1])).join(' ')}" fill="none" stroke="#FF9600" stroke-opacity=".35" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round"/>`;
+  const ground = look ? '' : `<line x1="10" y1="${FIG.ground + 1}" x2="220" y2="${FIG.ground + 1}" stroke="#E2E8F0" stroke-width="4" stroke-linecap="round"/>`;
+  items.sort((a, b) => a.d - b.d);
+  const svg = ground + shadow + tr + items.map(i => i.svg).join('');
+  const toe = hl && !look ? (() => { const T = J(q[hl].toe, sideZ(hl)); return [T.x, T.y]; })() : null;
+  return { svg, toe };
+}
+
 /* Controlador de la animación visible (una a la vez) */
 const AV = { id: null, frames: null, t: 0, last: 0, speed: 0.6, playing: true, step: null, trail: [], prevTT: 0, raf: null };
 function framesOf(id) { return ANIM[id].f.map(([label, o, ms, hold]) => ({ label, pose: poseOf(o), ms: ms || 360, hold: hold == null ? 250 : hold })); }
@@ -2690,7 +2744,17 @@ function mountAnim() {
   const id = el.dataset.kick;
   if (!id || !ANIM[id]) { AV.el = null; return; }
   if (AV.id !== id) { AV.id = id; AV.frames = framesOf(id); AV.t = 0; AV.trail = []; AV.step = null; AV.playing = true; }
-  AV.el = el; drawAnim();
+  AV.el = el;
+  if (!el._drag) {
+    el._drag = true; el.style.touchAction = 'none'; el.style.cursor = 'grab';
+    let lx = null;
+    el.addEventListener('pointerdown', e => { lx = e.clientX; try { el.setPointerCapture(e.pointerId); } catch (_) {} });
+    el.addEventListener('pointermove', e => { if (lx === null) return; VIEW.yaw += (e.clientX - lx) * 0.012; lx = e.clientX; AV.el = el; drawAnim(); });
+    const end = () => { lx = null; };
+    el.addEventListener('pointerup', end); el.addEventListener('pointercancel', end);
+    el.addEventListener('dblclick', () => { VIEW.yaw = 0; AV.el = el; drawAnim(); });
+  }
+  drawAnim();
   if (!AV.raf) { AV.last = performance.now(); AV.raf = requestAnimationFrame(animLoop); }
 }
 function animLoop(ts) {
@@ -2732,8 +2796,11 @@ const DEF_TYPE = {
   b_kblock: 'blockHigh', b_kcounter: 'checkLow', b_check: 'checkLow', b_block: 'blockHigh', b_parry: 'parry', b_slip: 'slip', b_counter: 'slip', b_roll: 'roll', b_pull: 'pull', b_catch: 'pull', b_range: 'stepBack', b_steps: 'stepBack', b_pivot: 'stepBack', b_guard: 'guard'
 };
 /* El defensor reacciona en el momento del impacto, sincronizado con cada cuadro del atacante */
+/* Llaves: contrincante de un solo color, tendido frente al atacante (la posición de agarre se ajusta por llave) */
+const LOCK_OPP = { x: 40, s: -1, g: 0, t: 88, L: { h: 90, k: 0, f: 0 }, R: { h: 90, k: 0, f: 0 } };
 function partnerPose(st) {
   const id = AV.id, box = id.startsWith('b_'), n = AV.frames.length, impact = Math.max(1, Math.floor(n / 2));
+  if (id.startsWith('j_')) return poseOf(LOCK_OPP);
   const key = box ? 'jab' : (DEF_TYPE[id] || 'guard');
   const rx = poseOf(Object.assign({ x: 84, s: -1 }, TEMPL[key]));
   const gd = poseOf(Object.assign({ x: 84, s: -1 }, TEMPL.guard));
@@ -2755,12 +2822,125 @@ function partnerPose(st) {
   const b = seq[st.idx], p = seq[st.pi];
   return st.u > 0 ? lerpPose(p, b, st.u) : b;
 }
+/* Escenas 3D con posiciones reales (x = adelante, y = arriba, z = lado; metros aprox.).
+   Cada cuadro define al atacante (A) y al contrincante (O) para que el agarre quede donde debe. */
+const SJ = ['head', 'neck', 'shL', 'shR', 'elL', 'elR', 'haL', 'haR', 'pel', 'knL', 'knR', 'ftL', 'ftR'];
+const SCENE = {
+  j_jgg: {
+    // 0 Guardia cerrada: el oponente arriba, sus brazos a la altura de tu cuello
+    // 1 Cadera al lado y una pierna sube
+    // 2 Pierna sobre la cara del oponente, cadera arriba
+    // 3 Cadera arriba: el codo queda bloqueado
+    // 4 Suelta y regresa a guardia
+    A: [
+      { head: [-0.62, 0.14, 0], neck: [-0.48, 0.13, 0], shL: [-0.42, 0.13, 0.2], shR: [-0.42, 0.13, -0.2], elL: [-0.36, 0.13, 0.36], elR: [-0.36, 0.13, -0.36], haL: [-0.2, 0.13, 0.45], haR: [-0.2, 0.13, -0.45], pel: [0.02, 0.13, 0], knL: [0.25, 0.6, 0.25], knR: [0.25, 0.6, -0.25], ftL: [0.5, 0.8, 0.1], ftR: [0.5, 0.8, -0.1] },
+      { head: [-0.62, 0.14, 0], neck: [-0.48, 0.13, 0], shL: [-0.42, 0.13, 0.2], shR: [-0.42, 0.13, -0.2], elL: [-0.36, 0.13, 0.36], elR: [-0.36, 0.13, -0.36], haL: [-0.2, 0.13, 0.45], haR: [-0.2, 0.13, -0.45], pel: [0.02, 0.13, 0.05], knL: [0.3, 0.9, 0.25], knR: [0.25, 0.6, -0.25], ftL: [0.55, 1.0, 0.2], ftR: [0.5, 0.8, -0.1] },
+      { head: [-0.62, 0.14, 0], neck: [-0.48, 0.13, 0], shL: [-0.42, 0.13, 0.2], shR: [-0.42, 0.13, -0.2], elL: [-0.36, 0.13, 0.36], elR: [-0.36, 0.13, -0.36], haL: [-0.2, 0.13, 0.45], haR: [-0.2, 0.13, -0.45], pel: [0.05, 0.3, 0.05], knL: [-0.2, 1.1, 0.2], knR: [0.2, 0.7, -0.25], ftL: [-0.5, 0.95, 0.35], ftR: [0.5, 0.8, -0.1] },
+      { head: [-0.62, 0.14, 0], neck: [-0.48, 0.13, 0], shL: [-0.42, 0.13, 0.2], shR: [-0.42, 0.13, -0.2], elL: [-0.36, 0.13, 0.36], elR: [-0.36, 0.13, -0.36], haL: [-0.2, 0.13, 0.45], haR: [-0.2, 0.13, -0.45], pel: [0.12, 0.42, 0.05], knL: [-0.2, 1.1, 0.2], knR: [0.2, 0.7, -0.25], ftL: [-0.5, 0.95, 0.35], ftR: [0.5, 0.8, -0.1] },
+      { head: [-0.62, 0.14, 0], neck: [-0.48, 0.13, 0], shL: [-0.42, 0.13, 0.2], shR: [-0.42, 0.13, -0.2], elL: [-0.36, 0.13, 0.36], elR: [-0.36, 0.13, -0.36], haL: [-0.2, 0.13, 0.45], haR: [-0.2, 0.13, -0.45], pel: [0.02, 0.13, 0], knL: [0.25, 0.6, 0.25], knR: [0.25, 0.6, -0.25], ftL: [0.5, 0.8, 0.1], ftR: [0.5, 0.8, -0.1] }
+    ],
+    O: [
+      { head: [-0.16, 1.2, 0], neck: [-0.08, 1.02, 0], shL: [-0.12, 0.98, 0.2], shR: [-0.12, 0.98, -0.2], elL: [-0.3, 0.82, 0.3], elR: [-0.3, 0.82, -0.3], haL: [-0.42, 0.48, 0.22], haR: [-0.42, 0.48, -0.22], pel: [0.22, 0.6, 0], knL: [0.25, 0.08, 0.3], knR: [0.25, 0.08, -0.3], ftL: [0.02, 0.08, 0.4], ftR: [0.02, 0.08, -0.4] },
+      { head: [-0.16, 1.2, 0], neck: [-0.08, 1.02, 0], shL: [-0.12, 0.98, 0.2], shR: [-0.12, 0.98, -0.2], elL: [-0.3, 0.82, 0.3], elR: [-0.3, 0.82, -0.3], haL: [-0.42, 0.48, 0.22], haR: [-0.42, 0.48, -0.22], pel: [0.22, 0.6, 0.05], knL: [0.25, 0.08, 0.3], knR: [0.25, 0.08, -0.3], ftL: [0.02, 0.08, 0.4], ftR: [0.02, 0.08, -0.4] },
+      { head: [-0.2, 1.1, 0], neck: [-0.12, 0.92, 0], shL: [-0.16, 0.9, 0.2], shR: [-0.16, 0.9, -0.2], elL: [-0.3, 0.7, 0.3], elR: [0.02, 0.5, -0.32], haL: [-0.42, 0.48, 0.22], haR: [0.2, 0.45, -0.4], pel: [0.22, 0.6, 0], knL: [0.25, 0.08, 0.3], knR: [0.25, 0.08, -0.3], ftL: [0.02, 0.08, 0.4], ftR: [0.02, 0.08, -0.4] },
+      { head: [-0.2, 1.1, 0], neck: [-0.12, 0.92, 0], shL: [-0.16, 0.9, 0.2], shR: [-0.16, 0.9, -0.2], elL: [-0.3, 0.7, 0.3], elR: [0.02, 0.5, -0.32], haL: [-0.42, 0.48, 0.22], haR: [0.2, 0.45, -0.4], pel: [0.22, 0.6, 0.05], knL: [0.25, 0.08, 0.3], knR: [0.25, 0.08, -0.3], ftL: [0.02, 0.08, 0.4], ftR: [0.02, 0.08, -0.4] },
+      { head: [-0.16, 1.2, 0], neck: [-0.08, 1.02, 0], shL: [-0.12, 0.98, 0.2], shR: [-0.12, 0.98, -0.2], elL: [-0.3, 0.82, 0.3], elR: [-0.3, 0.82, -0.3], haL: [-0.3, 0.12, 0.45], haR: [-0.42, 0.48, -0.22], pel: [0.22, 0.6, 0], knL: [0.25, 0.08, 0.3], knR: [0.25, 0.08, -0.3], ftL: [0.02, 0.08, 0.4], ftR: [0.02, 0.08, -0.4] }
+    ]
+  },
+  j_am: (() => {
+    // Americana: el atacante está de espalda y fija la muñeca del oponente contra el piso con el brazo a 90°
+    const aBase = { head: [-0.62, 0.14, 0], neck: [-0.48, 0.13, 0], shL: [-0.42, 0.13, 0.2], shR: [-0.42, 0.13, -0.2], elL: [-0.36, 0.13, 0.36], elR: [-0.3, 0.3, -0.3], haL: [-0.2, 0.13, 0.45], haR: [-0.25, 0.45, -0.22], pel: [0.02, 0.13, 0], knL: [0.25, 0.6, 0.25], knR: [0.25, 0.6, -0.25], ftL: [0.5, 0.8, 0.1], ftR: [0.5, 0.8, -0.1] };
+    const oBase = { head: [-0.16, 1.2, 0], neck: [-0.08, 1.02, 0], shL: [-0.12, 0.98, 0.2], shR: [-0.12, 0.98, -0.2], elL: [-0.3, 0.82, 0.3], elR: [-0.3, 0.82, -0.3], haL: [-0.42, 0.48, 0.22], haR: [-0.3, 0.5, -0.22], pel: [0.22, 0.6, 0], knL: [0.25, 0.08, 0.3], knR: [0.25, 0.08, -0.3], ftL: [0.02, 0.08, 0.4], ftR: [0.02, 0.08, -0.4] };
+    const A = [
+      Object.assign({}, aBase),
+      Object.assign({}, aBase, { haR: [-0.32, 0.46, -0.2] }),
+      Object.assign({}, aBase, { haR: [-0.2, 0.22, -0.2], elR: [-0.22, 0.2, -0.3] }),
+      Object.assign({}, aBase)
+    ];
+    const O = [
+      Object.assign({}, oBase),
+      Object.assign({}, oBase, { elR: [-0.36, 0.78, -0.36], haR: [-0.32, 0.45, -0.2] }),
+      Object.assign({}, oBase, { neck: [-0.12, 0.8, 0], head: [-0.2, 0.98, 0], elR: [-0.4, 0.7, -0.4], haR: [-0.2, 0.22, -0.2] }),
+      Object.assign({}, oBase, { haL: [-0.3, 0.12, 0.45] })
+    ];
+    return { A, O };
+  })(),
+  j_kim: (() => {
+    // Kimura: el atacante fija la muñeca del oponente con figura de cuatro y gira su brazo hacia la espalda
+    const aBase = { head: [-0.62, 0.14, 0], neck: [-0.48, 0.13, 0], shL: [-0.42, 0.13, 0.2], shR: [-0.42, 0.13, -0.2], elL: [-0.36, 0.13, 0.36], elR: [-0.3, 0.3, -0.3], haL: [-0.2, 0.13, 0.45], haR: [-0.3, 0.5, -0.25], pel: [0.02, 0.13, 0], knL: [0.25, 0.6, 0.25], knR: [0.25, 0.6, -0.25], ftL: [0.5, 0.8, 0.1], ftR: [0.5, 0.8, -0.1] };
+    const oBase = { head: [-0.16, 1.2, 0], neck: [-0.08, 1.02, 0], shL: [-0.12, 0.98, 0.2], shR: [-0.12, 0.98, -0.2], elL: [-0.3, 0.82, 0.3], elR: [-0.3, 0.8, -0.3], haL: [-0.42, 0.48, 0.22], haR: [-0.3, 0.5, -0.25], pel: [0.22, 0.6, 0], knL: [0.25, 0.08, 0.3], knR: [0.25, 0.08, -0.3], ftL: [0.02, 0.08, 0.4], ftR: [0.02, 0.08, -0.4] };
+    const A = [
+      Object.assign({}, aBase),
+      Object.assign({}, aBase, { haR: [-0.26, 0.5, -0.27] }),
+      Object.assign({}, aBase, { haR: [-0.1, 0.55, -0.3], elR: [-0.2, 0.3, -0.36] }),
+      Object.assign({}, aBase)
+    ];
+    const O = [
+      Object.assign({}, oBase),
+      Object.assign({}, oBase, { elR: [-0.22, 0.76, -0.28], haR: [-0.3, 0.5, -0.25] }),
+      Object.assign({}, oBase, { elR: [-0.22, 0.76, -0.28], haR: [0.1, 0.62, -0.38] }),
+      Object.assign({}, oBase, { haL: [-0.3, 0.12, 0.45] })
+    ];
+    return { A, O };
+  })()
+};
+function sceneSVG(P, who) {
+  const c = Math.cos(VIEW.yaw), sn = Math.sin(VIEW.yaw), S = 88, gy = FIG.ground - 6;
+  const Q = {};
+  SJ.forEach(k => { const p = P[k]; const Xr = p[0] * c + p[2] * sn, Zr = -p[0] * sn + p[2] * c; Q[k] = { x: FIG.cx + Xr * S, y: gy - p[1] * S, d: Zr }; });
+  const f = v => v.toFixed(1);
+  const att = who === 'att';
+  const pal = att ? { limb: '#4F46E5', limbE: '#312E81', arm: '#A5B4FC', armE: '#4F46E5', torso: '#3730A3', torsoE: '#1E1B4B', head: '#FCD9B6', glove: '#EF4444' }
+    : { limb: '#64748B', limbE: '#64748B', arm: '#64748B', armE: '#64748B', torso: '#64748B', torsoE: '#64748B', head: '#64748B', glove: '#64748B' };
+  const items = [];
+  const seg = (a, b, w, col, edge) => items.push({ d: (a.d + b.d) / 2, svg: `<line x1="${f(a.x)}" y1="${f(a.y)}" x2="${f(b.x)}" y2="${f(b.y)}" stroke="${edge}" stroke-width="${w * S + 3}" stroke-linecap="round"/><line x1="${f(a.x)}" y1="${f(a.y)}" x2="${f(b.x)}" y2="${f(b.y)}" stroke="${col}" stroke-width="${w * S}" stroke-linecap="round"/>` });
+  const dot = (a, r, col, edge) => items.push({ d: a.d, svg: `<circle cx="${f(a.x)}" cy="${f(a.y)}" r="${r}" fill="${col}" stroke="${edge}" stroke-width="1.2"/>` });
+  seg(Q.neck, Q.pel, 0.16, pal.torso, pal.torsoE);
+  seg(Q.shL, Q.shR, 0.1, pal.torso, pal.torsoE);
+  seg(Q.neck, Q.shL, 0.08, pal.torso, pal.torsoE); seg(Q.neck, Q.shR, 0.08, pal.torso, pal.torsoE);
+  seg(Q.shL, Q.elL, 0.08, pal.arm, pal.armE); seg(Q.elL, Q.haL, 0.07, pal.arm, pal.armE); dot(Q.elL, 4.5, pal.arm, pal.armE); dot(Q.haL, 3.5, pal.glove, '#7F1D1D');
+  seg(Q.shR, Q.elR, 0.08, pal.arm, pal.armE); seg(Q.elR, Q.haR, 0.07, pal.arm, pal.armE); dot(Q.elR, 4.5, pal.arm, pal.armE); dot(Q.haR, 3.5, pal.glove, '#7F1D1D');
+  seg(Q.pel, Q.knL, 0.11, pal.limb, pal.limbE); seg(Q.knL, Q.ftL, 0.09, pal.limb, pal.limbE); dot(Q.knL, 5, pal.limb, pal.limbE);
+  seg(Q.pel, Q.knR, 0.11, pal.limb, pal.limbE); seg(Q.knR, Q.ftR, 0.09, pal.limb, pal.limbE); dot(Q.knR, 5, pal.limb, pal.limbE);
+  items.push({ d: Q.head.d + 0.5, svg: `<circle cx="${f(Q.head.x)}" cy="${f(Q.head.y)}" r="${0.14 * S}" fill="${pal.head}" stroke="#7C2D12" stroke-width="1.2"/>` });
+  const xs = SJ.map(k => Q[k].x), x0 = Math.min(...xs) - 8, x1 = Math.max(...xs) + 8;
+  const shadow = `<ellipse cx="${f((x0 + x1) / 2)}" cy="${gy + 1}" rx="${f((x1 - x0) / 2)}" ry="4" fill="#0F172A" fill-opacity=".14"/>`;
+  items.sort((a, b) => a.d - b.d);
+  return shadow + items.map(i => i.svg).join('');
+}
+/* Mantiene la longitud de cada hueso para que los brazos no se estiren */
+const BONES = [['pel', 'neck'], ['neck', 'shL'], ['neck', 'shR'], ['shL', 'elL'], ['elL', 'haL'], ['shR', 'elR'], ['elR', 'haR'], ['pel', 'knL'], ['knL', 'ftL'], ['pel', 'knR'], ['knR', 'ftR']];
+function restOf(P) {
+  const r = {};
+  BONES.forEach(([a, b]) => { r[a + b] = Math.hypot(P[b][0] - P[a][0], P[b][1] - P[a][1], P[b][2] - P[a][2]); });
+  return r;
+}
+function fixBones(P, rest) {
+  BONES.forEach(([a, b]) => {
+    const d = [P[b][0] - P[a][0], P[b][1] - P[a][1], P[b][2] - P[a][2]];
+    const n = Math.hypot(d[0], d[1], d[2]) || 1, L = rest[a + b];
+    P[b] = [P[a][0] + d[0] / n * L, P[a][1] + d[1] / n * L, P[a][2] + d[2] / n * L];
+  });
+  return P;
+}
+function drawScene() {
+  const st = animState(), S = SCENE[AV.id];
+  if (!S.rest) S.rest = { A: restOf(S.A[0]), O: restOf(S.O[0]) };
+  const lerpJ = (a, b, u) => { const o = {}; SJ.forEach(k => { o[k] = a[k].map((v, i) => v + (b[k][i] - v) * u); }); return o; };
+  const O = fixBones(lerpJ(S.O[st.pi], S.O[st.idx], st.u), S.rest.O), A = fixBones(lerpJ(S.A[st.pi], S.A[st.idx], st.u), S.rest.A);
+  const ground = `<line x1="10" y1="${FIG.ground - 5}" x2="220" y2="${FIG.ground - 5}" stroke="#E2E8F0" stroke-width="4" stroke-linecap="round"/>`;
+  AV.el.innerHTML = `<svg viewBox="0 0 230 226" class="w-full h-full">${ground}${sceneSVG(O, 'opp')}${sceneSVG(A, 'att')}</svg>`;
+  const lb = document.getElementById('animlabel'); if (lb) lb.textContent = AV.frames[st.idx].label;
+  const ct = document.getElementById('coachtext'); if (ct) ct.textContent = AV.frames[st.idx].label;
+  const ph = document.getElementById('animphase'); if (ph) ph.textContent = `Fase ${st.idx + 1} de ${AV.frames.length}`;
+}
 function drawAnim() {
   if (!AV.el || !AV.frames) return;
+  if (SCENE[AV.id]) { drawScene(); return; }
   const st = animState(); const hl = ANIM[AV.id].hl;
   const r = figSVG(st.pose, hl, AV.step === null ? AV.trail : null);
-  const hasP = !/^(f_|j_)/.test(AV.id);
-  const pr = hasP ? figSVG(partnerPose(st), null, null, 'partner') : { svg: '' };
+  const hasP = !/^f_/.test(AV.id) && !(AV.id.startsWith('j_') && !SCENE[AV.id]);
+  const pr = hasP ? figSVG(partnerPose(st), null, null, AV.id.startsWith('j_') ? 'solo' : 'partner') : { svg: '' };
   if (r.toe && AV.step === null) { AV.trail.push(r.toe); if (AV.trail.length > 26) AV.trail.shift(); }
   AV.el.innerHTML = `<svg viewBox="0 0 230 226" class="w-full h-full">${pr.svg}${r.svg}</svg>`;
   const lb = document.getElementById('animlabel'); if (lb) lb.textContent = AV.frames[st.idx].label;
@@ -2773,6 +2953,7 @@ function viewerHTML(id, compact) {
     <div id="anim" data-kick="${id}" class="${compact ? 'h-40' : 'h-56'} w-full"></div>
     <div id="animlabel" class="text-center font-black text-sm min-h-[20px]"></div>
     <div id="animphase" class="text-center text-[11px] font-extrabold text-slate-400"></div>
+    <div class="text-center text-[10px] font-bold text-slate-400">Arrastra la figura para girarla · doble toque: vista inicial</div>
     <div class="flex items-center justify-center gap-2 mt-2">
       <button data-act="astep" data-arg="-1" class="w-10 h-10 rounded-xl border-2 border-slate-200 bg-white font-black">⏮</button>
       <button id="aplay" data-act="aplay" class="w-12 h-10 rounded-xl text-white font-black bg-slate-700">${AV.id === id && (!AV.playing || AV.step !== null) ? '▶' : '⏸'}</button>
